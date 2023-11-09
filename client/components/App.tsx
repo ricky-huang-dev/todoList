@@ -1,4 +1,5 @@
 import AddTodo from './AddTodo.tsx'
+import Footer from './Footer.tsx'
 import TodoList from './TodoList.tsx'
 
 function App() {

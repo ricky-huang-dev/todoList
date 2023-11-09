@@ -15,3 +15,7 @@ export async function addTodo(newTodo: NewTodo) {
 export async function deleteTask(id: number) {
   await request.delete(`${baseUrl}/${id}`)
 }
+
+export async function editTask(id: number, newTodo: string) {
+  await request.patch(`${baseUrl}/${id}`).send({ taskDetails: newTodo })
+}

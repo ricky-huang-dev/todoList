@@ -1,6 +1,6 @@
 export interface NewTodo {
   taskDetails: string
-  completed: string
+  completed: boolean
   priority: number
 }
 

@@ -26,10 +26,9 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
   const id = Number(req.params.id)
-  const { taskDetails, completed, priority } = req.body
-  const newTodo = { id, taskDetails, completed, priority }
+  const { taskDetails } = req.body
   try {
-    await db.updateTodo(id, newTodo)
+    await db.updateTodo(id, taskDetails)
     res.sendStatus(200)
   } catch (error) {
     if (error instanceof Error) {
