@@ -2,11 +2,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { addTodo } from '../apis/todos'
 import { NewTodo } from '../../models/todos'
-import React, { useState } from 'react'
 
 function AddTodo() {
   const queryClient = useQueryClient()
-  const [taskDetails, setTaskDetails] = useState('')
   const mutation = useMutation({
     mutationFn: (newTodo: NewTodo) => addTodo(newTodo),
     onSuccess: () => {

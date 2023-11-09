@@ -1,12 +1,23 @@
-import { useQuery } from '@tanstack/react-query'
-import { fetchTodos } from '../apis/todos'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { deleteTask, fetchTodos } from '../apis/todos'
 
 function TodoList() {
   const { data } = useQuery({
     queryKey: ['todoTask'],
     queryFn: fetchTodos,
   })
-  console.log(data)
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: (id: number) => deleteTask(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['todoTask'])
+    },
+  })
+
+  const handleDeleteClick = (id: number) => {
+    mutation.mutate(id)
+  }
 
   return (
     <>
@@ -17,7 +28,10 @@ function TodoList() {
               <div className="view">
                 <input className="toggle" type="checkbox" />
                 <label>{todoTask.taskDetails}</label>
-                <button className="destroy"></button>
+                <button
+                  className="destroy"
+                  onClick={() => handleDeleteClick(todoTask.id)}
+                ></button>
               </div>
             </li>
           ) : (
@@ -25,7 +39,10 @@ function TodoList() {
               <div className="view">
                 <input className="toggle" type="checkbox" checked />
                 <label>{todoTask.taskDetails}</label>
-                <button className="destroy"></button>
+                <button
+                  className="destroy"
+                  onClick={() => handleDeleteClick(todoTask.id)}
+                ></button>
               </div>
             </li>
           )

@@ -8,6 +8,7 @@ function App() {
         <h1>todos</h1>
         <AddTodo />
         <TodoList />
+        <Footer />
       </header>
       <section className="main"></section>
       <footer className="footer"></footer>

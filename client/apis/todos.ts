@@ -11,3 +11,7 @@ export async function fetchTodos() {
 export async function addTodo(newTodo: NewTodo) {
   await request.post(baseUrl).send(newTodo)
 }
+
+export async function deleteTask(id: number) {
+  await request.delete(`${baseUrl}/${id}`)
+}
