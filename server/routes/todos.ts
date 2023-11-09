@@ -24,4 +24,32 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.patch('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  const { taskDetails, completed, priority } = req.body
+  const newTodo = { id, taskDetails, completed, priority }
+  try {
+    await db.updateTodo(id, newTodo)
+    res.sendStatus(200)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error)
+      res.status(500).json({ error: 'woopsie server error' })
+    }
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    await db.deleteTodo(id)
+    res.sendStatus(200)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error)
+      res.status(500).json({ error: 'woopsie server error' })
+    }
+  }
+})
+
 export default router

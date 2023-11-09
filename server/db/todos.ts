@@ -1,14 +1,6 @@
 import db from './connection'
+import { NewTodo, TodoTask } from '../../models/todos'
 
-export interface NewTodo {
-  taskDetails: string
-  completed: string
-  priority: number
-}
-
-export interface TodoTask extends NewTodo {
-  id: number
-}
 export async function getTodos() {
   return (await db('todos')
     .select('id', 'taskDetails', 'completed', 'priority')
@@ -17,4 +9,12 @@ export async function getTodos() {
 
 export async function addTodo(newTask: NewTodo) {
   return await db('todos').insert(newTask)
+}
+
+export async function updateTodo(id: number, updateTodo: NewTodo) {
+  return db('todos').where({ id }).update(updateTodo)
+}
+
+export async function deleteTodo(id: number) {
+  return db('todos').where({ id }).del()
 }
