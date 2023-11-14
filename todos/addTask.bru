@@ -1,0 +1,19 @@
+meta {
+  name: addTask
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5173/api/v1/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+   {
+    "taskDetails": "wheel of death",
+    "priority": "non-urgent",
+    "completed": "no"
+  }
+}
