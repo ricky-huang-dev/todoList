@@ -19,3 +19,7 @@ export async function addTask(taskText: ITask['text']): Promise<ITask> {
   const res = await request.post(`${taskApiUrl}`).send({ text: taskText })
   return res.body
 }
+
+export async function deleteTask(taskId: ITask['id']): Promise<void> {
+  await request.delete(`${taskApiUrl}/${taskId}`)
+}

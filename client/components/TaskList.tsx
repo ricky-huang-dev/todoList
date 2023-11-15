@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getTasks, toggleCompleted } from '../apis/taskApi.ts'
+import { deleteTask, getTasks, toggleCompleted } from '../apis/taskApi.ts'
 import { ITask } from '../../models/taskModel.ts'
 
 function TaskList() {
@@ -17,8 +17,19 @@ function TaskList() {
     },
   })
 
+  const deleteMutation = useMutation({
+    mutationFn: (taskId: ITask['id']) => deleteTask(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks'])
+    },
+  })
+
   function handleToggleCompleted(task: ITask) {
     editMutation.mutate(task)
+  }
+
+  function handleDeleteTask(taskId: ITask['id']) {
+    deleteMutation.mutate(taskId)
   }
 
   return (
@@ -33,7 +44,11 @@ function TaskList() {
               onChange={() => handleToggleCompleted(task)}
             />
             <label htmlFor="toggle">{task.text}</label>
-            <button name="destroy" className="destroy"></button>
+            <button
+              name="destroy"
+              className="destroy"
+              onClick={() => handleDeleteTask(task.id)}
+            ></button>
           </div>
         </li>
       ))}
