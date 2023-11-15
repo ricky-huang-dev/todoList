@@ -7,7 +7,7 @@ const __filename = URL.fileURLToPath(import.meta.url)
 const __dirname = Path.dirname(__filename)
 
 const server = express()
-
+//check what the line below does
 server.use(express.static(join(__dirname, 'public')))
 server.use(express.json())
 
