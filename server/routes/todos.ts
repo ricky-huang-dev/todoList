@@ -1,5 +1,5 @@
 import express from 'express'
-import { addTask, deleteTask, listTasks, updateTask } from '../db'
+import { addTask, deleteTask, listTasks, updateTask } from '../db/db'
 
 const router = express.Router()
 
@@ -10,8 +10,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { details, priority, completed } = req.body
-  const newData = { details, priority, completed }
+  const newData = req.body
 
   try {
     await addTask(newData)

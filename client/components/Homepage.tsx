@@ -1,18 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
 import { getToDos } from '../apis/clientApi'
+import Tasks from './Tasks'
+import Footer from './Footer'
+import AddTodo from './AddTodo'
 
 function Homepage() {
-  const { data, isError, isLoading, error } = useQuery({
+  const {
+    data: tasks,
+    isError,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['tasks'],
     queryFn: getToDos,
   })
-  console.log(data)
 
-  function handleComplete() {
-    const checked = true
-    console.log(checked)
-    return checked
-  }
+  console.log(tasks)
 
   if (isLoading) return <p>Loading</p>
 
@@ -21,60 +24,16 @@ function Homepage() {
     <>
       <section className="main">
         <input id="toggle-all" className="toggle-all" type="checkbox" />
+
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           {/* <!-- These are here just to show the structure of the list items -->
           <!-- List items should get the className `editing` when editing and `completed` when marked as completed --> */}
-          <li className="completed">
-            <div className="view">
-              <input className="toggle" type="checkbox" checked />
-              <label>Taste JavaScript</label>
-              <button className="destroy"></button>
-            </div>
-            <input className="edit" value="Create a TodoMVC template" />
-          </li>
-          <li>
-            {data.map((todo: any) => (
-              <li key={todo.id}>
-                <div className="view">
-                  <input
-                    className="toggle"
-                    type="checkbox"
-                    onClick={handleComplete}
-                  />
-                  <label>{todo.details}</label>
-                  <button className="destroy"></button>
-                </div>
-                <input className="edit" value="Rule the web" />
-              </li>
-            ))}
-          </li>
+          <Tasks tasks={tasks} />
         </ul>
       </section>
-
       <section>
-        <footer className="footer">
-          {/* <!-- This should be `0 items left` by default --> */}
-          <span className="todo-count">
-            <strong>0</strong> item left
-          </span>
-          {/* <!-- Remove this if you don't implement routing --> */}
-          <ul className="filters">
-            <li>
-              <a className="selected" href="#/">
-                All
-              </a>
-            </li>
-            <li>
-              <a href="#/active">Active</a>
-            </li>
-            <li>
-              <a href="#/completed">Completed</a>
-            </li>
-          </ul>
-          {/* <!-- Hidden if no completed items are left ↓ --> */}
-          <button className="clear-completed">Clear completed</button>
-        </footer>
+        <Footer />
       </section>
       <footer className="info">
         <p>Double-click to edit a todo</p>
