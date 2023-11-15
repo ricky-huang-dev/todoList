@@ -21,7 +21,12 @@ function AllTodos() {
     <>
       <ul className="todo-list">
         {data?.map((task) => (
-          <TodoItem key={task.id} id={task.id} taskDetails={task.taskDetails} />
+          <TodoItem
+            key={task.id}
+            id={task.id}
+            taskDetails={task.taskDetails}
+            completed={task.completed}
+          />
         ))}
       </ul>
     </>

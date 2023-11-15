@@ -5,11 +5,13 @@ import { useState } from 'react'
 interface Props {
   id: number
   taskDetails: string
+  completed: boolean
 }
 
-function TodoItem({ id, taskDetails }: Props) {
+function TodoItem({ id, taskDetails, completed }: Props) {
   const [editing, setEditing] = useState(false)
   const [task, setTask] = useState(taskDetails)
+  const [taskComplete, setTaskComplete] = useState(completed)
 
   // mutating the todos when someone clicks the delete button
   const queryClient = useQueryClient()
@@ -38,18 +40,22 @@ function TodoItem({ id, taskDetails }: Props) {
     <>
       <li key={id}>
         <div className="view">
-          <input className="toggle" type="checkbox" />
+          <input
+            className="toggle"
+            type="checkbox"
+            // checked={completed === true}
+            // onChange={setTaskComplete(!completed)}
+          />
 
           {editing ? (
             <form onSubmit={handleTaskEditSubmit}>
-              <label>
-                <input
-                  type="text"
-                  name={task}
-                  value={task}
-                  onChange={(e) => setTask(e.target.value)}
-                />
-              </label>
+              <input
+                type="text"
+                className="new-todo"
+                name={task}
+                value={task}
+                onChange={(e) => setTask(e.target.value)}
+              />
             </form>
           ) : (
             <label onDoubleClick={() => setEditing(!editing)}>
