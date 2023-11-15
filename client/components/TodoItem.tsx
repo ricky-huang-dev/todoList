@@ -1,8 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { todo } from '../../model/todos'
-import { deleteTodo } from '../apis/clientApi'
+import { deleteTodo, updateTodo } from '../apis/clientApi'
+import { useState } from 'react'
 
 export default function TodoItem(props: todo) {
+  const [content, setContent] = useState(props.details)
+  const [isEdit, setIsEdit] = useState(false)
+
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: () => deleteTodo(props.id),
@@ -10,20 +14,50 @@ export default function TodoItem(props: todo) {
       queryClient.invalidateQueries(['todos'])
     },
   })
+
+  const updatemutation = useMutation({
+    mutationFn: () => updateTodo(props.id, { details: content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['todos'])
+    },
+  })
+
   function handleDelete(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault()
     mutation.mutate()
   }
 
+  function handleEdit(e: React.MouseEvent<HTMLElement>) {
+    e.preventDefault()
+    setIsEdit(!isEdit)
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    updatemutation.mutate()
+    setIsEdit(false)
+  }
+
   return (
     <>
       <li>
-        <div className="view">
-          <input className="toggle" type="checkbox" />
-          <label>{props.details}</label>
-          <button onClick={handleDelete} className="destroy"></button>
-        </div>
-        <input className="edit" value="Rule the web" />
+        <button onDoubleClick={handleEdit}>
+          {isEdit ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                // className="edit"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </form>
+          ) : (
+            <div className="view">
+              <input className="toggle" type="checkbox" />
+              <label>{props.details}</label>
+              <button onClick={handleDelete} className="destroy"></button>
+            </div>
+          )}
+        </button>
       </li>
     </>
   )

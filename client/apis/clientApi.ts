@@ -1,5 +1,4 @@
 import request from 'superagent'
-import { newTodo } from '../../model/todos'
 
 export async function getTodos() {
   const response = await request.get('/api/v1/todos')
@@ -17,4 +16,8 @@ export async function addTodo(details: string) {
     completed: false,
   }
   await request.post(`/api/v1/todos`).send(newTodo)
+}
+
+export async function updateTodo(id: number, updatedTodo: object) {
+  await request.patch(`/api/v1/todos/${id}`).send(updatedTodo)
 }
