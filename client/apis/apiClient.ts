@@ -6,7 +6,7 @@ export async function getAllTasks() {
   return response.body as AddTask[]
 }
 
-export async function editTasks(task: EditTask) {
+export async function editTasks(task: AddTask) {
   await request.patch(`/api/v1/tasks/${task.id}`).send(task)
 }
 

@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteTask, editTasks, getAllTasks } from '../apis/apiClient'
-import { AddTask, NewTask } from '../../models/tasks'
+import { addTask, deleteTask, editTasks, getAllTasks } from '../apis/apiClient'
+import { AddTask } from '../../models/tasks'
 
 {
   /* <!-- These are here just to show the structure of the list items -->
   <!-- List items should get the className `editing` when editing and `completed` when marked as completed --> */
 }
 
-function useTasks() {
+export function useTasks() {
   const queryClient = useQueryClient()
 
   const completeMutation = useMutation({
@@ -24,7 +24,14 @@ function useTasks() {
     },
   })
 
-  return { completeMutation, deleteMutation }
+  const addMutation = useMutation({
+    mutationFn: (task: AddTask) => addTask(task),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks'])
+    },
+  })
+
+  return { completeMutation, deleteMutation, addMutation }
 }
 
 function ViewTasks() {
@@ -84,7 +91,11 @@ function ViewTasks() {
                     className="destroy"
                   ></button>
                 </div>
-                <input className="edit" value="Create a TodoMVC template" />
+                <input
+                  className="editing"
+                  value="Create a TodoMVC template"
+                  type="text"
+                />
               </li>
             </>
           )
