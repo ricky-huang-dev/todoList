@@ -1,5 +1,11 @@
 import connection from './connection'
 
+interface Todo {
+  id: number
+  task: string
+  completed: boolean
+}
+
 const db = connection
 
 export function getTasks() {
@@ -7,8 +13,8 @@ export function getTasks() {
 }
 
 // function thatr adds a new task
-export function addTask() {
-  return db('tasks')
+export function addTask(newTask: Todo) {
+  return db('tasks').insert(newTask)
 }
 
 // function that updates a task
@@ -20,3 +26,7 @@ export function updateTask(id: number, task: string) {
 export function deleteTask(id: number) {
   return db('tasks').where('id', id).delete()
 }
+
+// export function getTask(id: number) {
+//   return db('tasks').select('id', 'task').where('id', id)
+// }

@@ -1,5 +1,5 @@
 import express from 'express'
-import { deleteTask } from '../db/db'
+import { deleteTask, addTask } from '../db/db'
 import * as db from '../db/db'
 
 const router = express.Router()
@@ -42,4 +42,17 @@ router.patch('/:id', async (req, res) => {
     res.sendStatus(500)
   }
 })
+
+// router for adding the task //
+router.post('/', async (req, res) => {
+  try {
+    const newPost = req.body
+    await addTask(newPost)
+    res.sendStatus(200)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
 export default router
