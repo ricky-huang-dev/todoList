@@ -10,7 +10,7 @@ function TodoText({ task }: { task: ITask }) {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
     const newText = form.get('text') as string
-    editMutation.mutate({ ...task, text: newText })
+    editMutation({ ...task, text: newText })
     setIsEditing(false)
   }
 

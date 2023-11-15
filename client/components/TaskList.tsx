@@ -17,12 +17,12 @@ function TaskList() {
   const { editMutation, deleteMutation } = useTasks()
 
   function handleToggleCompleted(task: ITask) {
-    editMutation.mutate({ ...task, completed: !task.completed })
+    editMutation({ ...task, completed: !task.completed })
   }
 
   function handleDeleteTask(taskId: ITask['id']) {
     const shouldDelete = window.confirm('Delete this task?')
-    if (shouldDelete) deleteMutation.mutate(taskId)
+    if (shouldDelete) deleteMutation(taskId)
   }
 
   return (

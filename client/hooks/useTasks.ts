@@ -5,24 +5,24 @@ import { ITask } from '../../models/taskModel'
 function useTasks() {
   const queryClient = useQueryClient()
 
-  const addMutation = useMutation({
+  const { mutate: addMutation } = useMutation({
     mutationFn: (newTaskText: ITask['text']) => addTask(newTaskText),
     onSuccess: () => {
-      queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
-  const editMutation = useMutation({
+  const { mutate: editMutation } = useMutation({
     mutationFn: (task: ITask) => updateTask(task),
     onSuccess: () => {
-      queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
-  const deleteMutation = useMutation({
+  const { mutate: deleteMutation } = useMutation({
     mutationFn: (taskId: ITask['id']) => deleteTask(taskId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['tasks'])
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
