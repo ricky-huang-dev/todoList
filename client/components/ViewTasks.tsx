@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { addTask, deleteTask, editTasks, getAllTasks } from '../apis/apiClient'
 import { AddTask } from '../../models/tasks'
+import { useState } from 'react'
+import ToDoTask from './ToDoTask'
 
 {
   /* <!-- These are here just to show the structure of the list items -->
@@ -31,11 +33,18 @@ export function useTasks() {
     },
   })
 
-  return { completeMutation, deleteMutation, addMutation }
+  const editMutation = useMutation({
+    mutationFn: (task: AddTask) => editTasks(task),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks'])
+    },
+  })
+
+  return { completeMutation, deleteMutation, addMutation, editMutation }
 }
 
 function ViewTasks() {
-  const { completeMutation, deleteMutation } = useTasks()
+  const { completeMutation, deleteMutation, editMutation } = useTasks()
 
   // const complete = useTasks('complete')
   function handleClick(task: AddTask) {
@@ -55,6 +64,10 @@ function ViewTasks() {
     console.log(id)
     return deleteMutation.mutate(id)
   }
+
+  // function handleDoubleClick(task) {
+  //   return editMutation.mutate(task)
+  // }
 
   const { data, isError, isLoading } = useQuery({
     queryKey: ['tasks'],
@@ -79,23 +92,24 @@ function ViewTasks() {
             <>
               <li
                 key={task.id}
-                className={task.completed === 'yes' ? 'completed' : ''}
+                className={task.completed == 'yes' ? 'completed' : ''}
               >
                 <div className="view">
-                  <input className="toggle" type="checkbox" />
-                  <button onClick={() => handleClick(task)}>
-                    <label key={task.id}>{task.taskDetails}</label>
-                  </button>
+                  {/* <input
+                    className="toggle"
+                    type="checkbox"
+                    checked={task.completed === 'yes'}
+                  /> */}
+                  <div>
+                    <button onClick={() => handleClick(task)}>
+                      <ToDoTask task={task} />
+                    </button>
+                  </div>
                   <button
                     onClick={() => handleDestroy(task.id)}
                     className="destroy"
                   ></button>
                 </div>
-                <input
-                  className="editing"
-                  value="Create a TodoMVC template"
-                  type="text"
-                />
               </li>
             </>
           )

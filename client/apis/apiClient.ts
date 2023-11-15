@@ -15,6 +15,5 @@ export async function addTask(task: AddTask) {
 }
 
 export async function deleteTask(id: number) {
-  console.log('apiclient', id)
   await request.delete(`/api/v1/tasks/${id}`)
 }
