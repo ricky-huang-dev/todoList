@@ -6,3 +6,11 @@ export async function getAllTasks() {
 
   return response.body as Todos[]
 }
+
+export async function deleteTask(id: number) {
+  return await request.delete(`/api/v1/todos/${id}`)
+}
+
+export async function addTask(taskDetails: string) {
+  return await request.post(`/api/v1/todos/`).send({ taskDetails })
+}

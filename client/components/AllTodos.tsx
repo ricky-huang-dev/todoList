@@ -1,9 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 
-import { useQuery } from '@tanstack/react-query'
-import { getAllTasks } from '../apis/todos'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { deleteTask, getAllTasks } from '../apis/todos'
 
 function AllTodos() {
+  // delete task mutation
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: (id: number) => deleteTask(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['todos'])
+    },
+  })
+
+  // displaying tasks on loading
   const { data, isLoading, error } = useQuery({
     queryKey: ['todos'],
     queryFn: () => getAllTasks(),
@@ -14,6 +25,10 @@ function AllTodos() {
   if (error) {
     return 'An error has occurred: ' + error
   }
+
+  // mutating the todos when someone clicks the delete button
+  const handleDeleteClick = (id: number) => mutation.mutate(id)
+
   return (
     <>
       <ul className="todo-list">
@@ -22,7 +37,10 @@ function AllTodos() {
             <div className="view">
               <input className="toggle" type="checkbox" />
               <label>{task.taskDetails}</label>
-              <button className="destroy"></button>
+              <button
+                onClick={() => handleDeleteClick(task.id)}
+                className="destroy"
+              ></button>
             </div>
           </li>
         ))}
