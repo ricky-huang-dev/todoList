@@ -2,11 +2,7 @@ import { useState } from 'react'
 import useTasks from '../hooks/useTasks'
 import { ITask } from '../../models/taskModel'
 
-interface TodoTextProps {
-  task: ITask
-}
-
-function TodoText({ task }: TodoTextProps) {
+function TodoText({ task }: { task: ITask }) {
   const [isEditing, setIsEditing] = useState(false)
   const { editMutation } = useTasks()
 

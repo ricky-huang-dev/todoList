@@ -10,8 +10,8 @@ function TaskList() {
     queryFn: getTasks,
     select: (data) =>
       data
-        .sort((a, b) => a.text.localeCompare(b.text))
-        .sort((a, b) => Number(a.completed) - Number(b.completed)),
+        .sort((a, b) => a.text.localeCompare(b.text)) // sort alphabetically
+        .sort((a, b) => Number(a.completed) - Number(b.completed)), // sort by completed
   })
 
   const { editMutation, deleteMutation } = useTasks()
@@ -21,7 +21,8 @@ function TaskList() {
   }
 
   function handleDeleteTask(taskId: ITask['id']) {
-    deleteMutation.mutate(taskId)
+    const shouldDelete = window.confirm('Delete this task?')
+    if (shouldDelete) deleteMutation.mutate(taskId)
   }
 
   return (
