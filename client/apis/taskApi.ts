@@ -14,3 +14,8 @@ export async function toggleCompleted(task: ITask): Promise<ITask> {
     .send({ completed: !task.completed })
   return res.body
 }
+
+export async function addTask(taskText: ITask['text']): Promise<ITask> {
+  const res = await request.post(`${taskApiUrl}`).send({ text: taskText })
+  return res.body
+}
