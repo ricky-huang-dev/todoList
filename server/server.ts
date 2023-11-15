@@ -12,6 +12,7 @@ server.use(express.static(join(__dirname, 'public')))
 server.use(express.json())
 
 import todosRoutes from './routes/todos.ts'
+
 server.use('/api/v1/todos', todosRoutes)
 server.use('/api/*', (req, res) => {
   res.sendStatus(404)
