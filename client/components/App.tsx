@@ -1,14 +1,26 @@
 import AddTodo from './AddTodo.tsx'
-import { useQuery } from '@tanstack/react-query'
-import { getTasks } from '../apis/taskApi.ts'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getTasks, toggleCompleted } from '../apis/taskApi.ts'
+import { ITask } from '../../models/taskModel.ts'
 
 function TaskList() {
   const { data } = useQuery({
     queryKey: ['tasks'],
-    queryFn: () => {
-      return getTasks()
+    queryFn: getTasks,
+  })
+
+  const queryClient = useQueryClient()
+
+  const editMutation = useMutation({
+    mutationFn: (task: ITask) => toggleCompleted(task),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks'])
     },
   })
+
+  function handleToggleCompleted(task: ITask) {
+    editMutation.mutate(task)
+  }
 
   return (
     <ul className="todo-list">
@@ -19,6 +31,7 @@ function TaskList() {
               className="toggle"
               type="checkbox"
               checked={task.completed}
+              onChange={() => handleToggleCompleted(task)}
             />
             <label htmlFor="toggle">{task.text}</label>
             <button name="destroy" className="destroy"></button>
@@ -33,7 +46,7 @@ function App() {
   return (
     <>
       <header className="header">
-        <h1>todos</h1>
+        <h1>tasks</h1>
         <AddTodo />
       </header>
       <section className="main">
