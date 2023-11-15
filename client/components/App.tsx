@@ -1,5 +1,5 @@
 import AddTodo from './AddTodo.tsx'
-import Home from './Home.tsx'
+import Homepage from './Homepage.tsx'
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <h1>todos</h1>
         <AddTodo />
       </header>
-      <Home />
+      <Homepage />
       <section className="main"></section>
       <footer className="footer"></footer>
     </>

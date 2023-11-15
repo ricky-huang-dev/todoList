@@ -1,4 +1,22 @@
-function Home() {
+import { useQuery } from '@tanstack/react-query'
+import { getToDos } from '../apis/clientApi'
+
+function Homepage() {
+  const { data, isError, isLoading, error } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: getToDos,
+  })
+  console.log(data)
+
+  function handleComplete() {
+    const checked = true
+    console.log(checked)
+    return checked
+  }
+
+  if (isLoading) return <p>Loading</p>
+
+  if (isError) return error
   return (
     <>
       <section className="main">
@@ -16,12 +34,20 @@ function Home() {
             <input className="edit" value="Create a TodoMVC template" />
           </li>
           <li>
-            <div className="view">
-              <input className="toggle" type="checkbox" />
-              <label>Buy a unicorn</label>
-              <button className="destroy"></button>
-            </div>
-            <input className="edit" value="Rule the web" />
+            {data.map((todo: any) => (
+              <li key={todo.id}>
+                <div className="view">
+                  <input
+                    className="toggle"
+                    type="checkbox"
+                    onClick={handleComplete}
+                  />
+                  <label>{todo.details}</label>
+                  <button className="destroy"></button>
+                </div>
+                <input className="edit" value="Rule the web" />
+              </li>
+            ))}
           </li>
         </ul>
       </section>
@@ -68,4 +94,4 @@ function Home() {
   )
 }
 
-export default Home()
+export default Homepage
