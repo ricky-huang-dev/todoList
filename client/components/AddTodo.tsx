@@ -10,6 +10,7 @@ function AddTodo() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     addMutation.mutate(newTaskText)
+    setNewTaskText('')
   }
 
   return (

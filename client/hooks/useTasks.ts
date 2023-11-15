@@ -1,5 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTask, deleteTask, toggleCompleted } from '../apis/taskApi'
+import {
+  addTask,
+  deleteTask,
+  toggleCompleted,
+  updateTask,
+} from '../apis/taskApi'
 import { ITask } from '../../models/taskModel'
 
 function useTasks() {
@@ -13,7 +18,7 @@ function useTasks() {
   })
 
   const editMutation = useMutation({
-    mutationFn: (task: ITask) => toggleCompleted(task),
+    mutationFn: (task: ITask) => updateTask(task),
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks'])
     },

@@ -15,6 +15,11 @@ export async function toggleCompleted(task: ITask): Promise<ITask> {
   return res.body
 }
 
+export async function updateTask(task: ITask): Promise<ITask> {
+  const res = await request.patch(`${taskApiUrl}/${task.id}`).send(task)
+  return res.body
+}
+
 export async function addTask(taskText: ITask['text']): Promise<ITask> {
   const res = await request.post(`${taskApiUrl}`).send({ text: taskText })
   return res.body

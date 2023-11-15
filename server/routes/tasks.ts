@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// Add a new task
 router.post('/', async (req, res) => {
   const newTask = req.body
   try {
@@ -24,6 +25,7 @@ router.post('/', async (req, res) => {
   }
 })
 
+// Edit a task
 router.patch('/:taskId', async (req, res) => {
   const taskId = Number(req.params.taskId)
   try {
@@ -35,6 +37,7 @@ router.patch('/:taskId', async (req, res) => {
   }
 })
 
+// Delete a task
 router.delete('/:taskId', async (req, res) => {
   const taskId = Number(req.params.taskId)
   try {

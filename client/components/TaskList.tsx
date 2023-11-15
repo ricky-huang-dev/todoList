@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getTasks } from '../apis/taskApi.ts'
 import { ITask } from '../../models/taskModel.ts'
 import useTasks from '../hooks/useTasks.ts'
+import TodoText from './TodoText.tsx'
 
 function TaskList() {
   const { data } = useQuery({
@@ -12,7 +13,7 @@ function TaskList() {
   const { editMutation, deleteMutation } = useTasks()
 
   function handleToggleCompleted(task: ITask) {
-    editMutation.mutate(task)
+    editMutation.mutate({ ...task, completed: !task.completed })
   }
 
   function handleDeleteTask(taskId: ITask['id']) {
@@ -22,7 +23,7 @@ function TaskList() {
   return (
     <ul className="todo-list">
       {data?.map((task) => (
-        <li key={task.id}>
+        <li key={task.id} className={task.completed ? 'completed' : ''}>
           <div className="view">
             <input
               className="toggle"
@@ -30,7 +31,7 @@ function TaskList() {
               checked={task.completed}
               onChange={() => handleToggleCompleted(task)}
             />
-            <label htmlFor="toggle">{task.text}</label>
+            <TodoText task={task} />
             <button
               name="destroy"
               className="destroy"
