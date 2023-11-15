@@ -5,7 +5,16 @@ meta {
 }
 
 put {
-  url: 
-  body: none
+  url: http://localhost:5173/api/v1/tasks/7
+  body: json
   auth: none
+}
+
+body:json {
+   {
+    "id": "7",
+    "taskDetails": "I am editing this task",
+    "priority": "non-urgent",
+    "completed": "no"
+  }
 }

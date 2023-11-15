@@ -2,11 +2,13 @@
 function AddTodo() {
   return (
     <>
+      {/* <form onSubmit={handleSubmit}> */}
       <input
         className="new-todo"
         placeholder="What needs to be done?"
         autoFocus={true}
       />
+      {/* </form> */}
     </>
   )
 }
