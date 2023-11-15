@@ -23,11 +23,14 @@ function TodoText({ task }: TodoTextProps) {
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           name="text"
-          className="new-todo"
+          className="new-todo edit"
+          required
           autoFocus={true}
           defaultValue={task.text}
           onBlur={() => setIsEditing(false)}
-          required
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setIsEditing(false)
+          }}
         />
       </form>
     )
