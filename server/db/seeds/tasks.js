@@ -9,7 +9,7 @@ export async function seed(knex) {
     {
       text: 'Do laundry',
       completed: false,
-      priority: 1,
+      priority: 0,
     },
     {
       text: 'Walk the dog',

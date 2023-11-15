@@ -1,10 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {
-  addTask,
-  deleteTask,
-  toggleCompleted,
-  updateTask,
-} from '../apis/taskApi'
+import { addTask, deleteTask, updateTask } from '../apis/taskApi'
 import { ITask } from '../../models/taskModel'
 
 function useTasks() {

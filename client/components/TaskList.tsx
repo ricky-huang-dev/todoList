@@ -8,6 +8,10 @@ function TaskList() {
   const { data } = useQuery({
     queryKey: ['tasks'],
     queryFn: getTasks,
+    select: (data) =>
+      data
+        .sort((a, b) => a.text.localeCompare(b.text))
+        .sort((a, b) => Number(a.completed) - Number(b.completed)),
   })
 
   const { editMutation, deleteMutation } = useTasks()
