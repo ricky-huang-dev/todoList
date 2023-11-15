@@ -1,5 +1,5 @@
 import db from '../db/connection'
-import { ITask } from '../db/models/taskModel'
+import { ITask } from '../../models/taskModel'
 
 export async function getTasks(): Promise<ITask[]> {
   return await db('tasks').select()
