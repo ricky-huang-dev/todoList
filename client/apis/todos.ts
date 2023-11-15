@@ -14,3 +14,11 @@ export async function deleteTask(id: number) {
 export async function addTask(taskDetails: string) {
   return await request.post(`/api/v1/todos/`).send({ taskDetails })
 }
+
+interface Props {
+  id: number
+  taskDetails: string
+}
+export async function editTask({ id, taskDetails }: Props) {
+  return await request.patch(`/api/v1/todos/${id}`).send({ taskDetails })
+}

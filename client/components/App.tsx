@@ -6,10 +6,11 @@ function App() {
     <>
       <header className="header">
         <h1>todos</h1>
+      </header>
+      <section className="main">
         <AddTodo />
         <AllTodos />
-      </header>
-      <section className="main"></section>
+      </section>
       <footer className="footer"></footer>
     </>
   )

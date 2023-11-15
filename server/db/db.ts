@@ -12,3 +12,7 @@ export async function addTask(taskDetails: string) {
 export async function deleteTask(id: number) {
   return db('todosTable').where({ id }).del()
 }
+
+export async function editTask(id: number, taskDetails: string) {
+  return db('todosTable').where({ id }).update({ taskDetails }).returning('*')
+}
