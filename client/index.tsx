@@ -4,8 +4,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import App from './components/App.tsx'
 
+const queryClient = new QueryClient()
+
 document.addEventListener('DOMContentLoaded', () => {
-  const queryClient = new QueryClient()
   createRoot(document.getElementById('app') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <App />
