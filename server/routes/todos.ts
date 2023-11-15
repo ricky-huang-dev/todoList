@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.status(500).send('Could not add pokemon')
+    res.status(500).send('Could not add')
   }
 })
 
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(201)
   } catch (err) {
     console.log(err)
-    res.status(500).send('Could not add pokemon')
+    res.status(500).send('Could not add')
   }
 })
 // delete task
@@ -33,7 +33,7 @@ router.delete('/:id', async (req, res) => {
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
-    res.status(500).send('Could not add pokemon')
+    res.status(500).send('Could not add')
   }
 })
 
@@ -46,7 +46,7 @@ router.patch('/:id', async (req, res) => {
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
-    res.status(500).send('Could not add pokemon')
+    res.status(500).send('Could not add')
   }
 })
 
