@@ -1,4 +1,5 @@
 export interface Tasks {
+  tasks: any
   id: number
   details: string
   priority: string
@@ -12,8 +13,11 @@ export interface AddTask {
 }
 
 export interface UpdateTask {
-  id: number
   details: string
   priority: string
+  completed: boolean
+}
+
+export interface Complete {
   completed: boolean
 }

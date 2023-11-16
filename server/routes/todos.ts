@@ -1,5 +1,11 @@
 import express from 'express'
-import { addTask, deleteTask, listTasks, updateTask } from '../db/db'
+import {
+  addTask,
+  completeTask,
+  deleteTask,
+  listTasks,
+  updateTask,
+} from '../db/db'
 
 const router = express.Router()
 
