@@ -17,8 +17,7 @@ function Tasks(props: Props) {
   })
 
   const completeMutation = useMutation({
-    mutationFn: (id: number, completedTasks: models.Complete) =>
-      updateToDos(id, completedTasks),
+    mutationFn: (completedTasks: models.Tasks) => updateToDos(completedTasks),
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks'])
     },
@@ -33,38 +32,42 @@ function Tasks(props: Props) {
     deleteMutation.mutate(id)
   }
 
-  function handleCompleted(e, id) {
-    e.preventDefault()
-    const completedTasks = { completed: true }
-    completeMutation.mutate(id, completedTasks)
+  function handleCompleted(tasks: models.Tasks) {
+    const completedTasks = { ...tasks, completed: true }
+    completeMutation.mutate(completedTasks)
+  }
 
-    console.log(e.currentTarget)
+  function handleUncompleted(tasks: models.Tasks) {
+    const completedTasks = { ...tasks, completed: false }
+    completeMutation.mutate(completedTasks)
   }
 
   return (
     <>
-      {displayTasks.map((todo: models.Tasks) =>
-        todo.completed == false ? (
-          <li key={todo.id}>
-            <div className="view">
-              <input
-                className="toggle"
-                type="checkbox"
-                onClick={(e) => handleCompleted(e, todo.id)}
-                defaultChecked={todo.completed}
-              />
+      {displayTasks.map((todo: models.Tasks) => (
+        <li key={todo.id}>
+          <div className="view">
+            <input
+              className="toggle"
+              type="checkbox"
+              onClick={() =>
+                todo.completed == false
+                  ? handleCompleted(todo)
+                  : handleUncompleted(todo)
+              }
+              defaultChecked={todo.completed}
+            />
 
-              <label>{todo.details}</label>
-              <button
-                onClick={(e) => handleDelete(e, todo.id)}
-                className="destroy"
-              ></button>
-            </div>
+            <label>{todo.details}</label>
+            <button
+              onClick={(e) => handleDelete(e, todo.id)}
+              className="destroy"
+            ></button>
+          </div>
 
-            <input className="edit" value="Rule the web" />
-          </li>
-        ) : null
-      )}
+          <input className="edit" value="Rule the web" />
+        </li>
+      ))}
     </>
   )
 }

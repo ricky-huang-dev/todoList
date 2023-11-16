@@ -17,7 +17,3 @@ export interface UpdateTask {
   priority: string
   completed: boolean
 }
-
-export interface Complete {
-  completed: boolean
-}
