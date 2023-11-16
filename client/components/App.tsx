@@ -3,6 +3,7 @@ import AddTodo from './AddTodo.tsx'
 import { getTodos } from '../apis/clientApi.ts'
 import { useQuery } from '@tanstack/react-query'
 import TodoItem from './TodoItem.tsx'
+import { todo } from '../../model/todos.ts'
 
 function App() {
   const {
@@ -34,26 +35,26 @@ function App() {
         <ul className="todo-list">
           {/* <!-- These are here just to show the structure of the list items --> */}
           {/* <!-- List items should get the className `editing` when editing and `completed` when marked as completed --> */}
-          <li className="completed">
+          {/* <li className="completed">
             <div className="view">
               <input className="toggle" type="checkbox" checked />
               <label>Taste JavaScript</label>
               <button className="destroy"></button>
             </div>
             <input className="edit" value="Create a TodoMVC template" />
-          </li>
-          {todos?.map((todo) => (
+          </li> */}
+          {todos?.map((todo: todo) => (
             <TodoItem key={todo.id} {...todo} />
           ))}
         </ul>
       </section>
-      <footer className="footer">
-        {/* <!-- This should be `0 items left` by default --> */}
-        <span className="todo-count">
-          <strong>0</strong> item left
-        </span>
-        {/* <!-- Remove this if you don't implement routing --> */}
-        <ul className="filters">
+      {/* <footer className="footer"> */}
+      {/* <!-- This should be `0 items left` by default --> */}
+      {/* <span className="todo-count"> */}
+      {/* <strong>0</strong> item left */}
+      {/* </span> */}
+      {/* <!-- Remove this if you don't implement routing --> */}
+      {/* <ul className="filters">
           <li>
             <a className="selected" href="#/">
               All
@@ -65,10 +66,10 @@ function App() {
           <li>
             <a href="#/completed">Completed</a>
           </li>
-        </ul>
-        {/* <!-- Hidden if no completed items are left ↓ --> */}
-        <button className="clear-completed">Clear completed</button>
-      </footer>
+        </ul> */}
+      {/* <!-- Hidden if no completed items are left ↓ --> */}
+      {/* <button className="clear-completed">Clear completed</button> */}
+      {/* </footer> */}
     </>
   )
 }

@@ -52,9 +52,11 @@ export default function TodoItem(props: todo) {
             </form>
           ) : (
             <div className="view">
-              <input className="toggle" type="checkbox" />
-              <label>{props.details}</label>
-              <button onClick={handleDelete} className="destroy"></button>
+              <input className="toggle" type="hidden" />
+              {props.details}
+              <button className="deleteBtn" onClick={handleDelete}>
+                Delete
+              </button>
             </div>
           )}
         </button>
