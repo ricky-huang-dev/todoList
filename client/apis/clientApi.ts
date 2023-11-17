@@ -15,8 +15,14 @@ export async function addToDos(details: string) {
   return await request.post(`/api/v1/tasks/`).send(newToDo)
 }
 
-export async function updateToDos(completedTask: Tasks) {
-  await request.patch(`/api/v1/tasks/${completedTask.id}`).send(completedTask)
+export async function completedToDos(completedTask: Tasks) {
+  await request
+    .patch(`/api/v1/tasks/complete/${completedTask.id}`)
+    .send(completedTask)
+}
+
+export async function updateToDos(task: UpdateTask) {
+  return await request.patch(`/api/v1/tasks/${task.id}`).send(task)
 }
 
 export async function deleteToDos(id: number) {

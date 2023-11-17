@@ -28,6 +28,20 @@ router.post('/', async (req, res) => {
     }
   }
 })
+router.patch('/complete/:id', async (req, res) => {
+  const id = +req.params.id
+  const data = req.body
+
+  try {
+    await completeTask(id, data)
+    res.send(200)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error)
+      res.status(500).json({ error: 'woopsie server error' })
+    }
+  }
+})
 
 router.patch('/:id', async (req, res) => {
   const id = +req.params.id
