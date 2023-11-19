@@ -8,6 +8,10 @@ function TodoList() {
   const { data } = useQuery({
     queryKey: ['todoTask'],
     queryFn: fetchTodos,
+    select: (data) =>
+      data
+        .sort((a, b) => a.taskDetails.localeCompare(b.taskDetails)) // sort alphabetically
+        .sort((a, b) => Number(a.completed) - Number(b.completed)), // sort by completed
   })
   const { editMutation, deleteMutation } = useTodos()
 

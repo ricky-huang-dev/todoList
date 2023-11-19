@@ -10,7 +10,8 @@ export async function fetchTodos() {
 }
 
 export async function addTodo(newTodo: NewTodo['taskDetails']) {
-  await request.post(baseUrl).send({ taskDetails: newTodo })
+  const res = await request.post(baseUrl).send({ taskDetails: newTodo })
+  return res.body
 }
 
 export async function deleteTask(id: number) {
@@ -18,5 +19,15 @@ export async function deleteTask(id: number) {
 }
 
 export async function editTask(updtateTodo: TodoTask) {
-  await request.patch(`${baseUrl}/${updtateTodo.id}`).send(updateTodo)
+  const res = await request
+    .patch(`${baseUrl}/${updtateTodo.id}`)
+    .send(updateTodo)
+  return res.body
+}
+
+export async function taskCompleted(task: TodoTask): Promise<TodoTask> {
+  const res = await request
+    .patch(`${baseUrl}/${task.id}`)
+    .send({ completed: !task.completed })
+  return res.body
 }
