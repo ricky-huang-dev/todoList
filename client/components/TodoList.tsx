@@ -1,7 +1,12 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getTodoList } from '../apis/todos'
+import TodoItem from './TodoItem'
+import { Todo } from '../../models/Todo'
+import useTodos from '../hooks/useTodos'
 
 export default function TodoList() {
+  const { deleteMutation } = useTodos()
+
   const {
     data: todos,
     isLoading,
@@ -12,14 +17,22 @@ export default function TodoList() {
   })
   if (isLoading) {
     return <h2>Loading...</h2>
-  }
-  if (isError) {
+  } else if (isError) {
     return <h2>ERROR</h2>
+  }
+
+  function handleDelete(todoId: Todo['todoId']) {
+    deleteMutation(todoId)
   }
   return (
     <>
       {todos.map((todo) => (
-        <p key={todo.todoId}>{todo.task}</p>
+        <>
+          <TodoItem key={todo.todoId} task={todo.task} />
+          <button name="delete" onClick={() => handleDelete(todo.todoId)}>
+            X
+          </button>
+        </>
       ))}
     </>
   )
