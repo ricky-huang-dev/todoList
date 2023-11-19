@@ -4,12 +4,13 @@ import useTodos from '../hooks/useTodos'
 
 function TodoDetails({ todoJob }: { todoJob: TodoTask }) {
   const [isEditing, setIsEditing] = useState(false)
+  const [task, setTask] = useState(todoJob.taskDetails)
   const { editMutation } = useTodos()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
-    const newText = form.get('text') as string
+    const newText = form.get('text')?.valueOf() as string
     editMutation({ ...todoJob, taskDetails: newText })
     setIsEditing(false)
   }
@@ -22,11 +23,13 @@ function TodoDetails({ todoJob }: { todoJob: TodoTask }) {
           className="new-todo edit"
           required
           // autoFocus={true}
-          defaultValue={todoJob.taskDetails}
-          onBlur={() => setIsEditing(false)}
+          defaultValue={task}
+          // onBlur={() => setIsEditing(false)}
           onKeyDown={(e) => {
             if (e.key === 'Escape') setIsEditing(false)
           }}
+          type="text"
+          onChange={(e) => setTask(e.target.value)}
         />
       </form>
     )
