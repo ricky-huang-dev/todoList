@@ -106,7 +106,7 @@ function Tasks(props: models.Tasks) {
             type="text"
             className="new-todo"
             name="updateTask"
-            defaultValue={currentTask.details}
+            defaultValue={currentTask?.details}
             onChange={(e) => setTask(e.target.value)}
           />
           {fullData()}
