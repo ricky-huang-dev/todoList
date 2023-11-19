@@ -14,36 +14,26 @@ function TodoDetails({ todoJob }: { todoJob: TodoTask }) {
     editMutation({ ...todoJob, taskDetails: newText })
     setIsEditing(false)
   }
-
-  if (isEditing) {
-    return (
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          name="text"
-          className="new-todo edit"
-          required
-          // autoFocus={true}
-          defaultValue={task}
-          // onBlur={() => setIsEditing(false)}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') setIsEditing(false)
-          }}
-          type="text"
-          onChange={(e) => setTask(e.target.value)}
-        />
-      </form>
-    )
-  } else {
-    return (
-      <label
-        htmlFor="toggle"
-        onDoubleClick={() => {
-          setIsEditing(true)
+  return isEditing ? (
+    <form onSubmit={(e) => handleSubmit(e)}>
+      <input
+        name="text"
+        className="new-todo"
+        required
+        // autoFocus={true}
+        defaultValue={task}
+        onBlur={() => setIsEditing(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setIsEditing(false)
         }}
-      >
-        {todoJob.taskDetails}
-      </label>
-    )
-  }
+        type="text"
+        onChange={(e) => setTask(e.target.value)}
+      />
+    </form>
+  ) : (
+    <label htmlFor="text" onDoubleClick={() => setIsEditing(true)}>
+      {todoJob.taskDetails}
+    </label>
+  )
 }
 export default TodoDetails
