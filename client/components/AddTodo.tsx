@@ -27,7 +27,7 @@ function AddTodo() {
         <input
           className="new-todo"
           placeholder="What needs to be done?"
-          autoFocus={true}
+          // autoFocus={true}
           type="text"
           name="taskDetails"
         />

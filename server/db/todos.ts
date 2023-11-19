@@ -11,8 +11,8 @@ export async function addTodo(newTask: NewTodo) {
   return await db('todos').insert(newTask)
 }
 
-export async function updateTodo(id: number, taskDetails: string) {
-  return db('todos').where({ id }).update({ taskDetails: taskDetails })
+export async function updateTodo(id: number, updateTask: NewTodo) {
+  return db('todos').where({ id }).update(updateTask)
 }
 
 export async function deleteTodo(id: number) {
