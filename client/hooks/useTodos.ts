@@ -13,8 +13,7 @@ function useTodos() {
   })
 
   const { mutate: editMutation } = useMutation({
-    mutationFn: ({ id, newTodo }: { id: string; newTodo: string }) =>
-      editTask(id, newTodo),
+    mutationFn: (updateTodo: TodoTask) => editTask(updateTodo),
     onSuccess: () => {
       queryClient.invalidateQueries(['todoTask'])
     },
