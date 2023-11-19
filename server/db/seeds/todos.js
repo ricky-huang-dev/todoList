@@ -8,6 +8,6 @@ export async function seed(knex) {
   await knex('todos').insert([
     { id: 1, taskDetails: 'do coding lesson', completed: true, priority: 5 },
     { id: 2, taskDetails: 'do the dishes', completed: false, priority: 4 },
-    { id: 3, taskDetails: 'do the laundary', completed: true, priority: 2 },
+    { id: 3, taskDetails: 'do the laundary', completed: false, priority: 2 },
   ])
 }

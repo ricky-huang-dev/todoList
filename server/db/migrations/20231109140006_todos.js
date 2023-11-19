@@ -4,10 +4,10 @@
  */
 export async function up(knex) {
   return knex.schema.createTable('todos', (table) => {
-    table.increments('id')
-    table.string('taskDetails')
-    table.boolean('completed')
-    table.integer('priority')
+    table.increments('id').primary()
+    table.string('taskDetails').notNullable()
+    table.boolean('completed').notNullable().defaultTo(false)
+    table.integer('priority').notNullable().defaultTo(0)
   })
 }
 
