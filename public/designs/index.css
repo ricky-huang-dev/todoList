@@ -4,6 +4,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* .dot {
+  color: white;
+} */
 button {
   margin: 0;
   padding: 0;
@@ -204,9 +208,9 @@ body {
 .todo-list li .destroy:hover {
   color: #af5b5e;
 }
-.todo-list li .destroy:after {
+/* .todo-list li .destroy:after {
   content: '×';
-}
+} */
 .todo-list li:hover .destroy {
   display: block;
 }

@@ -1,5 +1,4 @@
 // eslint-disable-next-line no-unused-vars
-
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { addToDos } from '../apis/clientApi'
 
@@ -24,12 +23,21 @@ function AddTodo() {
   return (
     <>
       <form onSubmit={handleAdd}>
-        <input
-          name="newToDo"
-          className="new-todo"
-          placeholder="What needs to be done?"
-          autoFocus={true}
-        />
+        <label htmlFor="newToDo">
+          <span className="visually-hidden">New Todo:</span>
+          <input
+            id="newToDo"
+            name="newToDo"
+            className="new-todo"
+            placeholder="What needs to be done?"
+            autoFocus={true}
+            aria-label="New Todo"
+            required
+          />
+        </label>
+        <button type="submit" className="visually-hidden">
+          Add Todo
+        </button>
       </form>
     </>
   )

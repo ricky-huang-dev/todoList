@@ -8,6 +8,7 @@ function Tasks(props: models.Tasks) {
   const [editing, setEditing] = useState(false)
   const [task, setTask] = useState(props.details)
   const [currentTask, setCurrentTask] = useState()
+  const queryClient = useQueryClient()
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => deleteToDos(id),
@@ -31,10 +32,6 @@ function Tasks(props: models.Tasks) {
     },
   })
 
-  const queryClient = useQueryClient()
-
-  const displayTasks = props.tasks
-
   function handleDelete(e: React.MouseEvent<HTMLElement>, id: number) {
     e.preventDefault()
     deleteMutation.mutate(id)
@@ -47,12 +44,11 @@ function Tasks(props: models.Tasks) {
 
   function handleEditState(editing: boolean, todo: models.UpdateTask) {
     setEditing(editing)
-
     setCurrentTask(todo)
   }
+
   function handleEditSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
     const form = new FormData(e.currentTarget)
     const details = form.get('updateTask')?.valueOf() as string
 
@@ -65,32 +61,37 @@ function Tasks(props: models.Tasks) {
 
     console.log('this is for update', updatedTask)
     editMutation.mutate(updatedTask)
-    setEditing(!editing)
+    setEditing(false)
   }
 
   function fullData() {
     return (
       <>
-        {displayTasks?.map((todo: models.Tasks) => (
+        {props.tasks?.map((todo: models.Tasks) => (
           <li key={todo.id}>
             <div className="view">
               <input
+                id={`complete-${todo.id}`}
                 className="toggle"
                 type="checkbox"
-                onClick={() => handleCompleted(todo)}
-                defaultChecked={todo.completed}
+                onChange={() => handleCompleted(todo)}
+                checked={todo.completed}
               />
-              <label onDoubleClick={() => handleEditState(!editing, todo)}>
+
+              <label
+                htmlFor={`complete-${todo.id}`}
+                onDoubleClick={() => handleEditState(!editing, todo)}
+              >
                 {todo.details}
               </label>
 
               <button
                 onClick={(e) => handleDelete(e, todo.id)}
                 className="destroy"
-              ></button>
+              >
+                X
+              </button>
             </div>
-
-            <input className="edit" value="Rule the web" />
           </li>
         ))}
       </>
@@ -98,28 +99,22 @@ function Tasks(props: models.Tasks) {
   }
 
   return (
-    <>
-      <li key={displayTasks.id}>
-        {editing ? (
-          <div>
-            <form onSubmit={(e) => handleEditSubmit(e)}>
-              <input
-                onDoubleClick={() => setEditing(!editing)}
-                type="text"
-                className="new-todo"
-                name="updateTask"
-                defaultValue={currentTask.details}
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
-              />
-            </form>
-            {fullData()}
-          </div>
-        ) : (
-          fullData()
-        )}
-      </li>
-    </>
+    <div>
+      {editing ? (
+        <form onSubmit={(e) => handleEditSubmit(e)}>
+          <input
+            type="text"
+            className="new-todo"
+            name="updateTask"
+            defaultValue={currentTask.details}
+            onChange={(e) => setTask(e.target.value)}
+          />
+          {fullData()}
+        </form>
+      ) : (
+        fullData()
+      )}
+    </div>
   )
 }
 
