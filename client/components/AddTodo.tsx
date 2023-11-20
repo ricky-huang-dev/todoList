@@ -24,7 +24,7 @@ function AddTodo() {
         id="new-todo"
         className="new-todo"
         placeholder="What needs to be done?"
-        // autoFocus={true}
+        autoFocus={true}
         value={newTaskText}
         onChange={(e) => setNewTaskText(e.target.value)}
       />

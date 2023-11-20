@@ -54,10 +54,6 @@ li {
   text-decoration: none;
 }
 
-:focus {
-  outline: 0;
-}
-
 .hidden {
   display: none;
 }
@@ -261,7 +257,6 @@ html .clear-completed:active {
   font-size: 200%;
   line-height: 0.1em;
 }
-
 
 @media (max-width: 430px) {
   .footer {

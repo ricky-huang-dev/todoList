@@ -32,9 +32,16 @@ function TodoText({ task }: { task: ITask }) {
   } else {
     return (
       <div
+        role="button"
         className={task.completed ? 'completed' : ''}
+        tabIndex={0}
         onDoubleClick={() => {
           setIsEditing(true)
+        }}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            setIsEditing(true)
+          }
         }}
       >
         {task.text}
