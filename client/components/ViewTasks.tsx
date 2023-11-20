@@ -19,7 +19,7 @@ export function useTasks() {
   })
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => deleteTask(id),
+    mutationFn: (id: number | undefined) => deleteTask(id),
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks'])
     },
@@ -102,6 +102,12 @@ function ViewTasks() {
                       className="complete"
                     >
                       Delete
+                    </button>
+                    <button
+                      onClick={() => setEditing(true)}
+                      className="complete"
+                    >
+                      Edit
                     </button>
                   </div>
                 </div>

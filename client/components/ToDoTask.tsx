@@ -35,14 +35,16 @@ export default function ToDoTask({ task }: { task: AddTask }) {
     )
   else
     return (
-      <form onSubmit={(e) => handleSubmit(e, task.id)}>
-        <input
-          onBlur={() => setEditing(false)}
-          name="editTask"
-          className="new-todo"
-          defaultValue={task.taskDetails}
-          type="text"
-        />
-      </form>
+      <>
+        <form onSubmit={(e) => handleSubmit(e, task.id)}>
+          <input
+            onBlur={() => setEditing(false)}
+            name="editTask"
+            className="new-todo"
+            defaultValue={task.taskDetails}
+            type="text"
+          />
+        </form>
+      </>
     )
 }

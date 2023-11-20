@@ -216,8 +216,8 @@ body {
   color: #4d4d4d;
 }
 
-.todo-list li.completed label {
-  color: #cdcdcd;
+.todo-list li.completed {
+  color: #716969;
   text-decoration: line-through;
 }
 
@@ -384,4 +384,9 @@ html .clear-completed:active {
   .filters {
     bottom: 10px;
   }
+}
+
+
+:focus{
+  outline: 3px solid red;
 }
