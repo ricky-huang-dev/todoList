@@ -5,8 +5,8 @@ const taskApiUrl = '/api/v1/tasks'
 
 export async function getTasks(): Promise<ITask[]> {
   console.log('clientapi:getTasks() before')
-  const res = await request.get(`${taskApiUrl}`)
-  console.log('clientapi:getTasks() res.body:', res.body)
+  const res = await request.get(`${taskApiUrl}/`)
+  console.log('clientapi:getTasks() res:', res)
   return res.body
 }
 
