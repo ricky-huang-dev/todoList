@@ -21,13 +21,16 @@ function AddTodo() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="taskDetails"
-          className="new-todo"
-          placeholder="What needs to be done?"
-          autoFocus={true}
-        />
+      <form id="taskDetails" onSubmit={handleSubmit}>
+        <label htmlFor="taskDetails">
+          New Task:
+          <input
+            id="taskDetails"
+            name="taskDetails"
+            className="new-todo"
+            placeholder="What needs to be done?"
+          />
+        </label>
       </form>
     </>
   )

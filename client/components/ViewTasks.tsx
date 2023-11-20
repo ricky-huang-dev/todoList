@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { addTask, deleteTask, editTasks, getAllTasks } from '../apis/apiClient'
 import { AddTask } from '../../models/tasks'
-import { useState } from 'react'
 import ToDoTask from './ToDoTask'
 
 {
@@ -44,7 +43,7 @@ export function useTasks() {
 }
 
 function ViewTasks() {
-  const { completeMutation, deleteMutation, editMutation } = useTasks()
+  const { completeMutation, deleteMutation } = useTasks()
 
   // const complete = useTasks('complete')
   function handleClick(task: AddTask) {
@@ -60,14 +59,9 @@ function ViewTasks() {
     }
   }
 
-  function handleDestroy(id: number) {
-    console.log(id)
+  function handleDestroy(id: number | undefined) {
     return deleteMutation.mutate(id)
   }
-
-  // function handleDoubleClick(task) {
-  //   return editMutation.mutate(task)
-  // }
 
   const { data, isError, isLoading } = useQuery({
     queryKey: ['tasks'],
@@ -84,8 +78,8 @@ function ViewTasks() {
 
   return (
     <>
-      <input id="toggle-all" className="toggle-all" type="checkbox" />
-      <label htmlFor="toggle-all">Mark all as complete</label>
+      {/* <input id="toggle-all" className="toggle-all" type="checkbox" />
+      <label htmlFor="toggle-all">Mark all as complete</label> */}
       <ul className="todo-list">
         {data.map((task) => {
           return (
@@ -95,20 +89,21 @@ function ViewTasks() {
                 className={task.completed == 'yes' ? 'completed' : ''}
               >
                 <div className="view">
-                  {/* <input
-                    className="toggle"
-                    type="checkbox"
-                    checked={task.completed === 'yes'}
-                  /> */}
+                  <ToDoTask task={task} />
                   <div>
-                    <button onClick={() => handleClick(task)}>
-                      <ToDoTask task={task} />
+                    <button
+                      className="complete"
+                      onClick={() => handleClick(task)}
+                    >
+                      Complete
+                    </button>
+                    <button
+                      onClick={() => handleDestroy(task.id)}
+                      className="complete"
+                    >
+                      Delete
                     </button>
                   </div>
-                  <button
-                    onClick={() => handleDestroy(task.id)}
-                    className="destroy"
-                  ></button>
                 </div>
               </li>
             </>

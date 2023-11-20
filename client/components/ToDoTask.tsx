@@ -7,7 +7,10 @@ export default function ToDoTask({ task }: { task: AddTask }) {
 
   const { editMutation } = useTasks()
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>, id: number) {
+  function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>,
+    id: number | undefined
+  ) {
     e.preventDefault()
 
     const form = new FormData(e.currentTarget)
@@ -27,7 +30,7 @@ export default function ToDoTask({ task }: { task: AddTask }) {
   if (editing === false)
     return (
       <>
-        <label onDoubleClick={() => setEditing(true)}>{task.taskDetails}</label>
+        <li onDoubleClick={() => setEditing(true)}>{task.taskDetails}</li>
       </>
     )
   else

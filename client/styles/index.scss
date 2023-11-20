@@ -4,21 +4,21 @@ body {
   padding: 0;
 }
 
-button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-size: 100%;
-  vertical-align: baseline;
-  font-family: inherit;
-  font-weight: inherit;
-  color: inherit;
-  -webkit-appearance: none;
-  appearance: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// button {
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   background: none;
+//   font-size: 100%;
+//   vertical-align: baseline;
+//   font-family: inherit;
+//   font-weight: inherit;
+//   color: inherit;
+//   -webkit-appearance: none;
+//   appearance: none;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
 
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -222,8 +222,8 @@ body {
 }
 
 .todo-list li .destroy {
-  display: none;
-  position: absolute;
+  display: block;
+  position: static;
   top: 0;
   right: 10px;
   bottom: 0;
@@ -238,10 +238,6 @@ body {
 
 .todo-list li .destroy:hover {
   color: #af5b5e;
-}
-
-.todo-list li .destroy:after {
-  content: "×";
 }
 
 .todo-list li:hover .destroy {
@@ -353,6 +349,16 @@ html .clear-completed:active {
 .info p.design-link {
   font-size: 200%;
   line-height: 0.1em;
+}
+
+.view{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin: 20px;
 }
 
 /*
