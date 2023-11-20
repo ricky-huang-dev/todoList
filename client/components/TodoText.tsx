@@ -39,7 +39,7 @@ function TodoText({ task }: { task: ITask }) {
           setIsEditing(true)
         }}
         onKeyUp={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === 'Enter' || e.key === ' ') {
             setIsEditing(true)
           }
         }}
