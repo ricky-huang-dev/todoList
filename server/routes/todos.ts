@@ -10,9 +10,7 @@ import {
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  console.log('Get is working')
   const list = await listTasks()
-  console.log('listtask is working' + list)
   res.json(list)
 })
 
