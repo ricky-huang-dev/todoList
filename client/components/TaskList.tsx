@@ -8,10 +8,7 @@ function TaskList() {
   const { data } = useQuery({
     queryKey: ['tasks'],
     queryFn: getTasks,
-    select: (data) =>
-      data
-        .sort((a, b) => a.text.localeCompare(b.text)) // sort alphabetically
-        .sort((a, b) => Number(a.completed) - Number(b.completed)), // sort by completed
+    select: (data) => data.sort((a, b) => a.text.localeCompare(b.text)), // sort alphabetically
   })
 
   const { editMutation, deleteMutation } = useTasks()
@@ -26,22 +23,39 @@ function TaskList() {
   }
 
   return (
-    <ul className="todo-list">
+    <ul
+      className="todo-list"
+      style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
+    >
       {data?.map((task) => (
-        <li key={task.id} className={task.completed ? 'completed' : ''}>
-          <div className="view">
-            <input
-              className="toggle"
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => handleToggleCompleted(task)}
-            />
+        <li key={task.id}>
+          <div
+            className="view"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid #e6e6e6',
+            }}
+          >
             <TodoText task={task} />
-            <button
-              name="destroy"
-              className="destroy"
-              onClick={() => handleDeleteTask(task.id)}
-            ></button>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              <button
+                id="btn-complete"
+                name="complete"
+                onClick={() => {
+                  handleToggleCompleted(task)
+                }}
+              >
+                toggle done
+              </button>
+              <button
+                id="btn-destroy"
+                name="destroy"
+                onClick={() => handleDeleteTask(task.id)}
+              >
+                delete
+              </button>
+            </div>
           </div>
         </li>
       ))}

@@ -19,7 +19,6 @@ function TodoText({ task }: { task: ITask }) {
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           name="text"
-          className="new-todo edit"
           required
           autoFocus={true}
           defaultValue={task.text}
@@ -32,14 +31,14 @@ function TodoText({ task }: { task: ITask }) {
     )
   } else {
     return (
-      <label
-        htmlFor="toggle"
+      <div
+        className={task.completed ? 'completed' : ''}
         onDoubleClick={() => {
           setIsEditing(true)
         }}
       >
         {task.text}
-      </label>
+      </div>
     )
   }
 }
