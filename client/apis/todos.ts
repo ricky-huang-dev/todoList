@@ -7,6 +7,16 @@ export async function getTodoList(): Promise<model.Todo[]> {
   return request.get(todoURL).then((res) => res.body)
 }
 
-export async function deleteTodo(taskId: model.Todo['todoId']): Promise<void> {
-  await request.delete(`${todoURL}/${taskId}`)
+export async function deleteTodo(todoId: model.Todo['todoId']): Promise<void> {
+  await request.delete(`${todoURL}/${todoId}`)
+}
+
+export async function addTodo(
+  todoText: model.NewTodo['task']
+): Promise<model.NewTodo> {
+  const res = await request
+    .post(`${todoURL}`)
+    .send({ task: todoText, priority: 'ASAP', completed: false })
+  //alternatively, a new migration should be created to set defaults for priority and completed
+  return res.body
 }

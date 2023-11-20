@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const newTodo = req.body
-  console.log(newTodo)
   try {
     await db.addTodos(newTodo)
     res.sendStatus(200)

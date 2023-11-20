@@ -24,16 +24,17 @@ export default function TodoList() {
   function handleDelete(todoId: Todo['todoId']) {
     deleteMutation(todoId)
   }
+
   return (
-    <>
+    <ul>
       {todos.map((todo) => (
-        <>
-          <TodoItem key={todo.todoId} task={todo.task} />
+        <li key={todo.todoId}>
+          <TodoItem task={todo.task} />
           <button name="delete" onClick={() => handleDelete(todo.todoId)}>
             X
           </button>
-        </>
+        </li>
       ))}
-    </>
+    </ul>
   )
 }
