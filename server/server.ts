@@ -7,6 +7,8 @@ const server = express()
 
 server.use(express.json())
 
+server.use('/api/v1/tasks', tasksRoutes)
+
 if (process.env.NODE_ENV === 'production') {
   // server.use(express.static(Path.resolve('public')))
   server.use('/assets', express.static(Path.resolve('./dist/assets')))
@@ -14,7 +16,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(Path.resolve('./dist/index.html'))
   })
 }
-
-server.use('/api/v1/tasks', tasksRoutes)
 
 export default server
