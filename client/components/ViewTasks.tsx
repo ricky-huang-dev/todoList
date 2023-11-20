@@ -43,26 +43,6 @@ export function useTasks() {
 }
 
 function ViewTasks() {
-  const { completeMutation, deleteMutation } = useTasks()
-
-  // const complete = useTasks('complete')
-  function handleClick(task: AddTask) {
-    if (task.completed === 'no') {
-      task.completed = 'yes'
-      // await editTasks(task.id, task)
-      return completeMutation.mutate(task)
-    }
-    if (task.completed === 'yes') {
-      task.completed = 'no'
-      // await editTasks(task.id, task)
-      return completeMutation.mutate(task)
-    }
-  }
-
-  function handleDestroy(id: number | undefined) {
-    return deleteMutation.mutate(id)
-  }
-
   const { data, isError, isLoading } = useQuery({
     queryKey: ['tasks'],
     queryFn: getAllTasks,
@@ -78,38 +58,13 @@ function ViewTasks() {
 
   return (
     <>
-      {/* <input id="toggle-all" className="toggle-all" type="checkbox" />
-      <label htmlFor="toggle-all">Mark all as complete</label> */}
       <ul className="todo-list">
         {data.map((task) => {
           return (
             <>
-              <li
-                key={task.id}
-                className={task.completed == 'yes' ? 'completed' : ''}
-              >
+              <li>
                 <div className="view">
                   <ToDoTask task={task} />
-                  <div>
-                    <button
-                      className="complete"
-                      onClick={() => handleClick(task)}
-                    >
-                      Complete
-                    </button>
-                    <button
-                      onClick={() => handleDestroy(task.id)}
-                      className="complete"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => setEditing(true)}
-                      className="complete"
-                    >
-                      Edit
-                    </button>
-                  </div>
                 </div>
               </li>
             </>
