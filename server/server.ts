@@ -10,7 +10,7 @@ server.use('/api/v1/tasks', todo)
 if (process.env.NODE_ENV === 'production') {
   server.use('/assets', express.static('./dist/assets'))
   server.get('*', (req, res) => {
-    res.sendFile('dist/index.html')
+    res.sendFile('./dist/index.html')
   })
 }
 
