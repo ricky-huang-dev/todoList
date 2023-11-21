@@ -46,17 +46,22 @@ function TodoItem({ id, taskDetails, completed }: Props) {
     <>
       <li key={id} className={taskComplete === true ? 'completed' : ''}>
         <div className="view">
+          <div>
+            <input
+              className="toggle"
+              type="checkbox"
+              checked={taskComplete}
+              onChange={handleCheckboxChange}
+              aria-label="task"
+            />
+          </div>
+
           {editing ? (
             <form onSubmit={handleTaskEditSubmit}>
               <input
-                className="toggle"
-                type="checkbox"
-                checked={taskComplete}
-                onChange={handleCheckboxChange}
-              />
-              <input
                 type="text"
                 className="new-todo"
+                required
                 value={task}
                 id={`task-${id}`}
                 onChange={(e) => setTask(e.target.value)}
@@ -64,12 +69,12 @@ function TodoItem({ id, taskDetails, completed }: Props) {
               <button type="submit"></button>
             </form>
           ) : (
-            <label
-              htmlFor={`task-${id}`}
+            <div
+              className="new-todo"
               onDoubleClick={() => setEditing(!editing)}
             >
               {taskDetails}
-            </label>
+            </div>
           )}
           <button onClick={() => handleDeleteClick(id)} className="destroy">
             .
