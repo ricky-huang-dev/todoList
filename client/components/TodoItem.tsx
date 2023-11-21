@@ -46,33 +46,34 @@ function TodoItem({ id, taskDetails, completed }: Props) {
     <>
       <li key={id} className={taskComplete === true ? 'completed' : ''}>
         <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={taskComplete}
-            onChange={handleCheckboxChange}
-          />
-
           {editing ? (
             <form onSubmit={handleTaskEditSubmit}>
               <input
+                className="toggle"
+                type="checkbox"
+                checked={taskComplete}
+                onChange={handleCheckboxChange}
+              />
+              <input
                 type="text"
                 className="new-todo"
-                name={task}
                 value={task}
+                id={`task-${id}`}
                 onChange={(e) => setTask(e.target.value)}
               />
+              <button type="submit"></button>
             </form>
           ) : (
-            <label onDoubleClick={() => setEditing(!editing)}>
+            <label
+              htmlFor={`task-${id}`}
+              onDoubleClick={() => setEditing(!editing)}
+            >
               {taskDetails}
             </label>
           )}
-
-          <button
-            onClick={() => handleDeleteClick(id)}
-            className="destroy"
-          ></button>
+          <button onClick={() => handleDeleteClick(id)} className="destroy">
+            .
+          </button>
         </div>
       </li>
     </>
