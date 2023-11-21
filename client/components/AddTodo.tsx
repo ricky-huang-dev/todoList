@@ -1,24 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTodo } from '../apis/todos'
-import { NewTodo } from '../../models/todos'
+import { useState } from 'react'
+import useTodos from '../hooks/useTodos'
 
 function AddTodo() {
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: (newTodo: NewTodo) => addTodo(newTodo),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['todoTask'])
-    },
-  })
+  const [newTodo, setNewTodo] = useState('')
+
+  const { addMutation } = useTodos()
 
   async function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const form = new FormData(e.currentTarget)
-    const taskDetail = form.get('taskDetails')?.valueOf() as string
-
-    mutation.mutate({ taskDetails: taskDetail, priority: 4, completed: 'No' })
-    e.currentTarget.reset()
+    addMutation(newTodo)
+    setNewTodo('')
   }
 
   return (
@@ -30,6 +22,8 @@ function AddTodo() {
           // autoFocus={true}
           type="text"
           name="taskDetails"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
         />
       </form>
     </>

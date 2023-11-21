@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     res.sendStatus(200)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ error: 'Something went wrong' })
   }
 })
 

@@ -6,7 +6,7 @@ function useTodos() {
   const queryClient = useQueryClient()
 
   const { mutate: addMutation } = useMutation({
-    mutationFn: (newTodo: NewTodo) => addTodo(newTodo),
+    mutationFn: (newTodo: NewTodo['taskDetails']) => addTodo(newTodo),
     onSuccess: () => {
       queryClient.invalidateQueries(['todoTask'])
     },

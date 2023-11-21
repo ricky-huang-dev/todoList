@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchTodos } from '../apis/todos'
-
-import CompletedTask from './CompletedTask'
-import UncompletedTask from './UncompletedTask'
+import { TodoTask } from '../../models/todos'
+import useTodos from '../hooks/useTodos'
 
 function TodoList() {
   const { data } = useQuery({
@@ -10,24 +9,28 @@ function TodoList() {
     queryFn: fetchTodos,
   })
 
+  function handleCompleted(task: TodoTask) {
+    useTodos.editMutation.editMutation(task)
+  }
+
   return (
     <>
       <ul className="todo-list">
-        {data?.map((todoTask) =>
-          todoTask.completed ? (
-            <CompletedTask
-              key={todoTask.id}
-              id={todoTask.id}
-              taskDetails={todoTask.taskDetails}
-            />
-          ) : (
-            <UncompletedTask
-              key={todoTask.id}
-              id={todoTask.id}
-              taskDetails={todoTask.taskDetails}
-            />
-          )
-        )}
+        {data?.map((todoTask) => (
+          <li
+            key={todoTask.id}
+            className={todoTask.completed ? 'completed' : ''}
+          >
+            <div className="view">
+              <input
+                className="toggle"
+                type="checkbox"
+                checked={todoTask.completed}
+                onChange={() => handleCompleted(todoTask)}
+              />
+            </div>
+          </li>
+        ))}
       </ul>
     </>
   )

@@ -9,8 +9,8 @@ export async function fetchTodos() {
   return res.body as TodoTask[]
 }
 
-export async function addTodo(newTodo: NewTodo) {
-  await request.post(baseUrl).send(newTodo)
+export async function addTodo(newTodo: NewTodo['taskDetails']) {
+  await request.post(baseUrl).send({ taskDetails: newTodo })
 }
 
 export async function deleteTask(id: number) {
