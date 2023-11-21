@@ -5,7 +5,7 @@ import { Todo } from '../../models/Todo'
 import useTodos from '../hooks/useTodos'
 
 export default function TodoList() {
-  const { deleteMutation } = useTodos()
+  const { deleteMutation, updateMutation } = useTodos()
   const {
     data: todos,
     isLoading,
@@ -17,23 +17,39 @@ export default function TodoList() {
   if (isLoading) {
     return <h2>Loading...</h2>
   } else if (isError) {
-    return <h2>ERROR</h2>
+    return <h2>Something is wrong</h2>
   }
 
   function handleDelete(todoId: Todo['todoId']) {
     deleteMutation(todoId)
   }
 
+  function handleComplete(todo: Todo) {
+    updateMutation({ ...todo, completed: !todo.completed })
+  }
+
   return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.todoId}>
-          <TodoItem task={todo.task} />
-          <button name="delete" onClick={() => handleDelete(todo.todoId)}>
-            X
-          </button>
-        </li>
-      ))}
-    </ul>
+    <section className="main">
+      <ul>
+        {todos.map((todo) => (
+          <div key={todo.todoId} className="view">
+            <input
+              className="toggle"
+              onClick={() => handleComplete(todo)}
+              type="checkbox"
+            />
+            <TodoItem task={todo.task} />
+            <button
+              className="destroy visually-hidden"
+              onClick={() => handleDelete(todo.todoId)}
+            >
+              X
+            </button>
+          </div>
+        ))}
+      </ul>
+      <input id="toggle-all" className="toggle-all" type="checkbox" />
+      <label htmlFor="toggle-all">Mark all as complete</label>
+    </section>
   )
 }
