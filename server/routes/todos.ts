@@ -37,19 +37,6 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-// // edit task
-// router.patch('/:id', async (req, res) => {
-//   try {
-//     const id = Number(req.params.id)
-//     const { taskDetails } = req.body
-//     await db.editTask(id, taskDetails)
-//     res.sendStatus(200)
-//   } catch (err) {
-//     console.log(err)
-//     res.status(500).send('Could not add')
-//   }
-// })
-
 // edit task
 router.patch('/:id', async (req, res) => {
   try {
