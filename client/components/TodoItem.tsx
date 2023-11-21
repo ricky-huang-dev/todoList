@@ -46,15 +46,13 @@ function TodoItem({ id, taskDetails, completed }: Props) {
     <>
       <li key={id} className={taskComplete === true ? 'completed' : ''}>
         <div className="view">
-          <div>
-            <input
-              className="toggle"
-              type="checkbox"
-              checked={taskComplete}
-              onChange={handleCheckboxChange}
-              aria-label="task"
-            />
-          </div>
+          <input
+            className="toggle"
+            type="checkbox"
+            checked={taskComplete}
+            onChange={handleCheckboxChange}
+            aria-label="task"
+          />
 
           {editing ? (
             <form onSubmit={handleTaskEditSubmit}>
