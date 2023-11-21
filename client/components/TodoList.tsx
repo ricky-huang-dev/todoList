@@ -2,15 +2,22 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchTodos } from '../apis/todos'
 import { TodoTask } from '../../models/todos'
 import useTodos from '../hooks/useTodos'
+import TodoDetails from './TodoDetails'
 
 function TodoList() {
   const { data } = useQuery({
     queryKey: ['todoTask'],
     queryFn: fetchTodos,
   })
+  const { editMutation, deleteMutation } = useTodos()
 
   function handleCompleted(task: TodoTask) {
-    useTodos.editMutation.editMutation(task)
+    editMutation({ ...task, completed: !task.completed })
+  }
+
+  function handleDeleteTask(taskId: TodoTask['id']) {
+    const shouldDelete = window.confirm('Delete this task?')
+    if (shouldDelete) deleteMutation(taskId)
   }
 
   return (
@@ -28,6 +35,12 @@ function TodoList() {
                 checked={todoTask.completed}
                 onChange={() => handleCompleted(todoTask)}
               />
+              <TodoDetails todoJob={todoTask} />
+              <button
+                name="destroy"
+                className="destroy"
+                onClick={() => handleDeleteTask(todoTask.id)}
+              ></button>
             </div>
           </li>
         ))}
