@@ -1,4 +1,4 @@
-import { Todos } from '../models/Todos.tsx'
+import { Todos } from '../../client/models/Todos.tsx'
 import db from './connection.ts'
 
 export async function getAllTodo(): Promise<Todos[]> {
@@ -20,18 +20,18 @@ export async function addTodo(
     .returning(['id', 'task', 'status', 'deadline', 'description'])
 }
 
-// export async function updateTodoTask(
-//   id: number,
-//   task: string,
-//   status: string,
-//   deadline: number,
-//   description: string
-// ): Promise<Todos | undefined> {
-//   return db('todo')
-//     .where({ id })
-//     .update({ task, status, deadline, description })
-//     .returning(['id', 'task', 'status', 'deadline', 'description'])
-// }
+export async function updateTodoTask(
+  id: number,
+  task: string,
+  status: string,
+  deadline: number,
+  description: string
+): Promise<Todos | undefined> {
+  return db('todo')
+    .where({ id })
+    .update({ task, status, deadline, description })
+    .returning(['id', 'task', 'status', 'deadline', 'description'])
+}
 
 export async function deleteTodo(id: number): Promise<void> {
   await db('todo').where({ id }).delete()
