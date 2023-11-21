@@ -14,7 +14,10 @@ function AddTodo() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="newInput">New Todo</label>
+
       <input
+        id="newInput"
         className="new-todo"
         placeholder="What needs to be done?"
         value={newTodo}

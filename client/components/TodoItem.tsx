@@ -5,8 +5,10 @@ interface Props {
 
 export default function TodoItem(props: Props) {
   return (
-    <>
-      <p>{props.task}</p>
-    </>
+    <li>
+      <div>
+        <p>{props.task}</p>
+      </div>
+    </li>
   )
 }

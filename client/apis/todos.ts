@@ -20,3 +20,14 @@ export async function addTodo(
   //alternatively, a new migration should be created to set defaults for priority and completed
   return res.body
 }
+
+export async function updateTodo(completedTodo: model.Todo) {
+  try {
+    const res = await request
+      .patch(`${todoURL}/${completedTodo.todoId}`)
+      .send(completedTodo)
+    return res.body
+  } catch (error) {
+    console.error(error)
+  }
+}

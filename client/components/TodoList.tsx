@@ -6,7 +6,6 @@ import useTodos from '../hooks/useTodos'
 
 export default function TodoList() {
   const { deleteMutation } = useTodos()
-
   const {
     data: todos,
     isLoading,
