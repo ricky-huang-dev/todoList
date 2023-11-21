@@ -35,10 +35,11 @@ export default function TodoList() {
           <div key={todo.todoId} className="view">
             <input
               className="toggle"
-              onClick={() => handleComplete(todo)}
+              onChange={() => handleComplete(todo)}
               type="checkbox"
+              checked={todo.completed}
             />
-            <TodoItem task={todo.task} />
+            <TodoItem todo={todo} />
             <button
               className="destroy visually-hidden"
               onClick={() => handleDelete(todo.todoId)}
