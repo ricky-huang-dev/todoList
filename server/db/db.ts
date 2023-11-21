@@ -1,3 +1,4 @@
+import { TaskItems } from '../../models/todos.ts'
 import db from './connection.ts'
 
 export async function getAllTasks() {
@@ -11,11 +12,7 @@ export async function addTask(taskDetails: string) {
 export async function deleteTask(id: number) {
   return db('todosTable').where({ id }).del()
 }
-interface TaskItems {
-  id: number
-  taskDetails?: string
-  completed?: number
-}
+
 export async function editTask(taskItems: TaskItems) {
   const { id, taskDetails, completed } = taskItems
   return db('todosTable').where({ id }).update({ taskDetails, completed })

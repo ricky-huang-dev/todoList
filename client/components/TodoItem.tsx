@@ -25,7 +25,8 @@ function TodoItem({ id, taskDetails, completed }: Props) {
 
   // edit task functions
   const mutation1 = useMutation({
-    mutationFn: () => editTask({ id, taskDetails: task }),
+    mutationFn: () =>
+      editTask({ id, taskDetails: task, completed: taskComplete }),
     onSuccess: () => {
       queryClient.invalidateQueries(['todos'])
     },
@@ -34,17 +35,22 @@ function TodoItem({ id, taskDetails, completed }: Props) {
     e.preventDefault()
     mutation1.mutate()
     setEditing(!editing)
+    setEditing(false)
+  }
+
+  const handleCheckboxChange = () => {
+    setTaskComplete(!taskComplete)
   }
 
   return (
     <>
-      <li key={id}>
+      <li key={id} className={taskComplete === true ? 'completed' : ''}>
         <div className="view">
           <input
             className="toggle"
             type="checkbox"
-            // checked={completed === true}
-            // onChange={setTaskComplete(!completed)}
+            checked={taskComplete}
+            onChange={handleCheckboxChange}
           />
 
           {editing ? (

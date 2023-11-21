@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Todos } from '../../models/todos'
+import { Todos, TaskItems } from '../../models/todos'
 
 export async function getAllTasks() {
   const response = await request.get('/api/v1/todos')
@@ -15,10 +15,9 @@ export async function addTask(taskDetails: string) {
   return await request.post(`/api/v1/todos/`).send({ taskDetails })
 }
 
-interface Props {
-  id: number
-  taskDetails: string
-}
-export async function editTask({ id, taskDetails }: Props) {
-  return await request.patch(`/api/v1/todos/${id}`).send({ taskDetails })
+export async function editTask(taskItems: TaskItems) {
+  const { id, taskDetails, completed } = taskItems
+  return await request
+    .patch(`/api/v1/todos/${id}`)
+    .send({ taskDetails, completed })
 }

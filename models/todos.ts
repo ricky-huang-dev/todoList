@@ -4,3 +4,9 @@ export interface Todos {
   priority: number
   completed: boolean
 }
+
+export interface TaskItems {
+  id: number
+  taskDetails?: string
+  completed?: boolean
+}
