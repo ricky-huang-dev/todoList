@@ -2,19 +2,24 @@ export async function seed(knex) {
   await knex('tasks').del()
   await knex('tasks').insert([
     {
-      text: 'Buy milk',
+      description: 'Wash the car',
       completed: false,
       priority: 0,
     },
     {
-      text: 'Do laundry',
-      completed: false,
-      priority: 0,
-    },
-    {
-      text: 'Walk the dog',
+      description: 'Walk dog',
       completed: true,
+      priority: 1,
+    },
+    {
+      description: 'Do groceries',
+      completed: false,
       priority: 0,
+    },
+    {
+      description: 'Get WoF',
+      completed: false,
+      priority: 1,
     },
   ])
 }

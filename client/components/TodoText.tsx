@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import useTasks from '../hooks/useTasks'
-import { ITask } from '../../models/taskModel'
+import { myTask } from '../../models/taskModel'
 
-function TodoText({ task }: { task: ITask }) {
+function TodoText({ task }: { task: myTask }) {
   const [isEditing, setIsEditing] = useState(false)
   const { editMutation } = useTasks()
 
@@ -10,7 +10,7 @@ function TodoText({ task }: { task: ITask }) {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
     const newText = form.get('text') as string
-    editMutation({ ...task, text: newText })
+    editMutation({ ...task, description: newText })
     setIsEditing(false)
   }
 
@@ -21,7 +21,7 @@ function TodoText({ task }: { task: ITask }) {
           name="text"
           required
           autoFocus={true}
-          defaultValue={task.text}
+          defaultValue={task.description}
           onBlur={() => setIsEditing(false)}
           onKeyDown={(e) => {
             if (e.key === 'Escape') setIsEditing(false)
@@ -44,7 +44,7 @@ function TodoText({ task }: { task: ITask }) {
           }
         }}
       >
-        {task.text}
+        {task.description}
       </div>
     )
   }

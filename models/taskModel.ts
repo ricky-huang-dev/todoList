@@ -1,6 +1,6 @@
-export interface ITask {
-  id?: number
-  text: string
-  completed: boolean
+export interface myTask {
+  id: number
+  description: string
   priority: number
+  completed: boolean
 }

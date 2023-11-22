@@ -1,21 +1,18 @@
 import db from '../db/connection'
-import { ITask } from '../../models/taskModel'
+import { myTask } from '../../models/taskModel'
 
-export async function getTasks(): Promise<ITask[]> {
+export async function getTasks() {
   return await db('tasks').select()
 }
 
-export async function addTask(task: ITask): Promise<ITask[]> {
+export async function addTask(task: myTask) {
   return await db('tasks').insert(task).returning('*')
 }
 
-export async function updateTask(
-  taskId: ITask['id'],
-  task: ITask
-): Promise<ITask[]> {
+export async function updateTask(taskId: number, task: myTask) {
   return await db('tasks').where('id', taskId).update(task).returning('*')
 }
 
-export async function deleteTask(taskId: ITask['id']): Promise<void> {
+export async function deleteTask(taskId: number) {
   return await db('tasks').where('id', taskId).del()
 }

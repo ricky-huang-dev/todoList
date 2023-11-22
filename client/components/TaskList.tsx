@@ -1,33 +1,33 @@
 import { useQuery } from '@tanstack/react-query'
-import { getTasks } from '../apis/taskApi.ts'
-import { ITask } from '../../models/taskModel.ts'
+import { getAllTasks } from '../apis/todos.ts'
+import { myTask } from '../../models/taskModel.ts'
 import useTasks from '../hooks/useTasks.ts'
 import TodoText from './TodoText.tsx'
 
 function TaskList() {
   const { data } = useQuery({
     queryKey: ['tasks'],
-    queryFn: getTasks,
-    select: (data) => data.sort((a, b) => a.text.localeCompare(b.text)), // sort alphabetically
+    queryFn: getAllTasks,
+    //select: (data) => data.sort((a, b) => a.text.localeCompare(b.text)), // sort alphabetically
   })
 
   const { editMutation, deleteMutation } = useTasks()
 
-  function handleToggleCompleted(task: ITask) {
+  function handleToggleCompleted(task: myTask) {
     editMutation({ ...task, completed: !task.completed })
   }
 
-  function handleDeleteTask(taskId: ITask['id']) {
+  function handleDeleteTask(taskId: number) {
     const shouldDelete = window.confirm('Delete this task?')
     if (shouldDelete) deleteMutation(taskId)
   }
-
+  console.log(data)
   return (
     <ul
       className="todo-list"
       style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
     >
-      {data?.map((task) => (
+      {data?.map((task: myTask) => (
         <li key={task.id}>
           <div
             className="view"
@@ -46,14 +46,14 @@ function TaskList() {
                   handleToggleCompleted(task)
                 }}
               >
-                toggle done
+                task done
               </button>
               <button
                 id="btn-destroy"
                 name="destroy"
                 onClick={() => handleDeleteTask(task.id)}
               >
-                delete
+                delete task
               </button>
             </div>
           </div>

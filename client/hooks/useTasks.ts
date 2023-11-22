@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTask, deleteTask, updateTask } from '../apis/taskApi'
-import { ITask } from '../../models/taskModel'
+import { addTask, deleteTask, updateTask } from '../apis/todos'
+import { myTask } from '../../models/taskModel'
 
 function useTasks() {
   const queryClient = useQueryClient()
 
   const { mutate: addMutation } = useMutation({
-    mutationFn: (newTaskText: ITask['text']) => addTask(newTaskText),
+    mutationFn: (newTaskText: myTask['description']) => addTask(newTaskText),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
   const { mutate: editMutation } = useMutation({
-    mutationFn: (task: ITask) => updateTask(task),
+    mutationFn: (task: myTask) => updateTask(task),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
   const { mutate: deleteMutation } = useMutation({
-    mutationFn: (taskId: ITask['id']) => deleteTask(taskId),
+    mutationFn: (taskId: number) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },

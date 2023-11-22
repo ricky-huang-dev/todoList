@@ -16,16 +16,15 @@ function AddTodo() {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="new-todo" style={{ position: 'absolute', height: 0 }}>
-        New todo
+        Add task
       </label>
 
       <input
         name="new-todo"
-        id="new-todo"
         className="new-todo"
         placeholder="What needs to be done?"
-        autoFocus={true}
         value={newTaskText}
+        id="new-todo"
         onChange={(e) => setNewTaskText(e.target.value)}
       />
     </form>
