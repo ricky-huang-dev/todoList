@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTodo, deleteTodo, updateTodoTask } from '../apis/todoApi'
+import { addTodo, deleteTodo, updateTodo } from '../apis/todoApi'
 
 export default function useTodo() {
   const queryClient = useQueryClient()
@@ -12,37 +12,15 @@ export default function useTodo() {
   })
 
   const editMutation = useMutation({
-    mutationFn: ({
-      id,
-      newTask,
-      newStatus,
-      newDeadline,
-      newDescription,
-    }: {
-      id: number
-      newTask: string
-      newStatus: string
-      newDeadline: number
-      newDescription: string
-    }) =>
-      updateTodoTask({ id, newTask, newStatus, newDeadline, newDescription }),
+    mutationFn: ({ id, newTask }: { id: number; newTask: string }) =>
+      updateTodo({ id, newTask }),
     onSuccess: () => {
       queryClient.invalidateQueries(['input'])
     },
   })
 
   const addMutation = useMutation({
-    mutationFn: ({
-      task,
-      status,
-      deadline,
-      description,
-    }: {
-      task: string
-      status: string
-      deadline: number
-      description: string
-    }) => addTodo({ task, status, deadline, description }),
+    mutationFn: ({ task }: { task: string }) => addTodo({ task }),
     onSuccess: () => {
       queryClient.invalidateQueries(['input'])
     },

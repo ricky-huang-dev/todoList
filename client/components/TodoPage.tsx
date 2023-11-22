@@ -1,16 +1,13 @@
 import { useState } from 'react'
-import styles from './PokemonListItem.module.css'
+import '../index.scss'
 import UseTodo from './UseTodo'
 
 interface Props {
   id: number
   task: string
-  status: string
-  deadline: number
-  description: string
 }
 
-export default function TodoListItem({ id, task }: Props) {
+export default function TodoPage({ id, task }: Props) {
   const [editing, setEditing] = useState(false)
   const [text, setText] = useState(task)
 
@@ -26,9 +23,6 @@ export default function TodoListItem({ id, task }: Props) {
     editMutation.mutate({
       id,
       newTask: text,
-      newStatus: '',
-      newDeadline: 0,
-      newDescription: '',
     })
     setEditing(false)
   }
@@ -45,10 +39,10 @@ export default function TodoListItem({ id, task }: Props) {
   return (
     <div>
       {editing ? (
-        <form onSubmit={handleEditSubmit} className={styles.form}>
+        <form onSubmit={handleEditSubmit}>
           <input
             type="text"
-            value={text}
+            defaultValue={task}
             onChange={(e) => setText(e.target.value)}
           />
           <button type="submit">Save</button>
@@ -58,8 +52,8 @@ export default function TodoListItem({ id, task }: Props) {
         </form>
       ) : (
         <p>
-          {id} - {task} -{''}
-          <span className={styles.buttons}>
+          {task} {''} <br />
+          <span>
             <button onClick={handleStartEditingClick}>Edit</button>
             <button onClick={handleDeleteClick}>Delete</button>
           </span>

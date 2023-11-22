@@ -9,28 +9,15 @@ export async function getTodoById(id: number): Promise<Todos | undefined> {
   return db('todo').where({ id }).first()
 }
 
-export async function addTodo(
-  task: string,
-  status: string,
-  deadline: number,
-  description: string
-): Promise<Todos> {
-  return db('todo')
-    .insert({ task, status, deadline, description })
-    .returning(['id', 'task', 'status', 'deadline', 'description'])
+export async function addTodo(task: string): Promise<Todos> {
+  return db('todo').insert(task)
 }
 
 export async function updateTodoTask(
   id: number,
-  task: string,
-  status: string,
-  deadline: number,
-  description: string
+  task: string
 ): Promise<Todos | undefined> {
-  return db('todo')
-    .where({ id })
-    .update({ task, status, deadline, description })
-    .returning(['id', 'task', 'status', 'deadline', 'description'])
+  return db('todo').where({ id }).update({ task }).returning(['id', 'task'])
 }
 
 export async function deleteTodo(id: number): Promise<void> {

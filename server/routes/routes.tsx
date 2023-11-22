@@ -34,14 +34,14 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { task, status, deadline, description } = req.body
+  const task = req.body
   if (!task) {
     res.status(400).send('Bad Request: task is required')
     return
   }
 
   try {
-    const todo = await db.addTodo(task, status, deadline, description)
+    const todo = await db.addTodo(task)
     res.status(200).json(todo)
   } catch (err) {
     console.log(err)
@@ -62,24 +62,8 @@ router.patch('/:id', async (req, res) => {
     return
   }
 
-  const status = req.body.status
-  if (!status) {
-    res.status(400).send('Bad Request: status is required')
-    return
-  }
-
-  const deadline = req.body.deadline
-  if (!deadline) {
-    res.status(400).send('Bad Request: deadline required')
-  }
-
-  const description = req.body.description
-  if (!description) {
-    res.status(400).send('Bad Request: description required')
-  }
-
   try {
-    await db.updateTodoTask(id, task, status, deadline, description)
+    await db.updateTodoTask(id, task)
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
