@@ -56,7 +56,14 @@ export default function TodoList() {
       </div>
       <div className="list">
         {todos &&
-          todos.map((t) => <TodoPage key={t.id} id={t.id} task={t.task} />)}
+          todos.map((t) => (
+            <TodoPage
+              key={t.id}
+              id={t.id}
+              task={t.task}
+              completed={t.completed}
+            />
+          ))}
       </div>
     </>
   )

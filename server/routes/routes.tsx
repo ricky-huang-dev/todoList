@@ -56,7 +56,7 @@ router.patch('/:id', async (req, res) => {
     return
   }
 
-  const task = req.body.task
+  const task = req.body
   if (!task) {
     res.status(400).send('Bad Request: task is required')
     return
