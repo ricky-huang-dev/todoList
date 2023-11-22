@@ -15,14 +15,14 @@ export default function useTodo() {
     mutationFn: ({ id, newTask }: { id: number; newTask: string }) =>
       updateTodo({ id, newTask }),
     onSuccess: () => {
-      queryClient.invalidateQueries(['input'])
+      queryClient.invalidateQueries(['task'])
     },
   })
 
   const addMutation = useMutation({
     mutationFn: ({ task }: { task: string }) => addTodo({ task }),
     onSuccess: () => {
-      queryClient.invalidateQueries(['input'])
+      queryClient.invalidateQueries(['task'])
     },
   })
 

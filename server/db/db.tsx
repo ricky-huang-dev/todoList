@@ -15,9 +15,13 @@ export async function addTodo(task: string): Promise<Todos> {
 
 export async function updateTodoTask(
   id: number,
-  task: string
+  task: string,
+  completed: boolean
 ): Promise<Todos | undefined> {
-  return db('todo').where({ id }).update({ task }).returning(['id', 'task'])
+  return db('todo')
+    .where({ id })
+    .update(task, completed)
+    .returning(['id', 'task', 'completed'])
 }
 
 export async function deleteTodo(id: number): Promise<void> {
