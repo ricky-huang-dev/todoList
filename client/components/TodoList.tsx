@@ -30,25 +30,18 @@ export default function TodoList() {
 
   return (
     <section className="main">
-      <ul>
-        {todos.map((todo) => (
-          <div key={todo.todoId} className="view">
-            <input
-              className="toggle"
-              onChange={() => handleComplete(todo)}
-              type="checkbox"
-              checked={todo.completed}
-            />
-            <TodoItem todo={todo} />
-            <button
-              className="destroy visually-hidden"
-              onClick={() => handleDelete(todo.todoId)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </ul>
+      {todos.map((todo) => (
+        <div key={todo.todoId} className="view">
+          <button className="toggle" onClick={() => handleComplete(todo)}>
+            Complete
+          </button>
+          <TodoItem todo={todo} />
+          <button className="delete" onClick={() => handleDelete(todo.todoId)}>
+            Delete
+          </button>
+        </div>
+      ))}
+
       <input id="toggle-all" className="toggle-all" type="checkbox" />
       <label htmlFor="toggle-all">Mark all as complete</label>
     </section>

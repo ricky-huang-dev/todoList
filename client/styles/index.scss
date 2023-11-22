@@ -5,9 +5,10 @@ body {
 }
 
 button {
+  border-radius:5px;
+  width: 70px;
   margin: 0;
   padding: 0;
-  border: 0;
   background: none;
   font-size: 100%;
   vertical-align: baseline;
@@ -19,7 +20,12 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+button:focus-visible {
+  /* remove default focus style */
+  outline: none;
+  /* custom focus styles */
+  box-shadow: 0 0 2px 2px #51a7e8;
+}
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
@@ -170,9 +176,6 @@ body {
   margin: 0 0 0 43px;
 }
 
-.todo-list li.editing .view {
-  display: none;
-}
 
 .todo-list li .toggle {
   text-align: center;
@@ -356,11 +359,37 @@ html .clear-completed:active {
 }
 
 .isDone{
+  margin:auto;
+  padding:6px;
+  margin: 5px;
+  font-size:20px;
   color: #000000;
   text-decoration: line-through;
 }
+.isNotDone{
+  padding:6px;
+  margin: 5px;
+  font-size:20px;
+
+}
+
+.toggle{
+  width: 100px;
+  font-size:20px;
+
+}
 
 
+.delete {
+  font-size:20px;
+
+}
+.view{
+  height:45px;
+  display:flex;
+  justify-content: space-between;
+  text-wrap: balance;
+}
 
 /*
   Hack to remove background from Mobile Safari.
