@@ -44,7 +44,7 @@ export default function TodoList() {
               className="destroy visually-hidden"
               onClick={() => handleDelete(todo.todoId)}
             >
-              X
+              Delete
             </button>
           </div>
         ))}

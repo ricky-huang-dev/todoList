@@ -26,7 +26,12 @@ export default function TodoItem(props: Props) {
   }
   return (
     <div>
-      <p onDoubleClick={() => setEdit(true)}>{props.todo.task}</p>
+      <p
+        className={props.todo.completed ? 'isDone' : ''}
+        onDoubleClick={() => setEdit(true)}
+      >
+        {props.todo.task}
+      </p>
     </div>
   )
 }

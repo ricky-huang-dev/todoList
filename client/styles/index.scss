@@ -355,6 +355,13 @@ html .clear-completed:active {
   line-height: 0.1em;
 }
 
+.isDone{
+  color: #000000;
+  text-decoration: line-through;
+}
+
+
+
 /*
   Hack to remove background from Mobile Safari.
   Can't use it globally since it destroys checkboxes in Firefox
