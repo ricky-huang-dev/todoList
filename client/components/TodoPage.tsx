@@ -5,9 +5,16 @@ import UseTodo from './UseTodo'
 interface Props {
   id: number
   task: string
+  completed: boolean
+  toggleCompleted: () => void
 }
 
-export default function TodoPage({ id, task }: Props) {
+export default function TodoPage({
+  id,
+  task,
+  completed,
+  toggleCompleted,
+}: Props) {
   const [editing, setEditing] = useState(false)
   const [text, setText] = useState(task)
 
@@ -51,13 +58,20 @@ export default function TodoPage({ id, task }: Props) {
           </button>
         </form>
       ) : (
-        <p>
-          {task} {''} <br />
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={completed}
+              onChange={toggleCompleted}
+            />
+            <span className={completed ? 'completed' : ''}>{task}</span>
+          </label>
           <span>
             <button onClick={handleStartEditingClick}>Edit</button>
             <button onClick={handleDeleteClick}>Delete</button>
           </span>
-        </p>
+        </div>
       )}
     </div>
   )
