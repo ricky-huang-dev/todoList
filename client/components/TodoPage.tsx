@@ -54,7 +54,7 @@ export default function TodoPage({
           />
           <button type="submit">Save</button>
           <button type="button" onClick={handleStopEditingClick}>
-            Stop Editing
+            Cancel
           </button>
         </form>
       ) : (
