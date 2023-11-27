@@ -33,18 +33,24 @@ function TodoList() {
             className={todoTask.completed ? 'completed' : ''}
           >
             <div className="view">
-              <input
-                className="toggle"
-                type="checkbox"
-                checked={todoTask.completed}
-                onChange={() => handleCompleted(todoTask)}
-              />
+              <label id="checkNewtodo">
+                to do
+                <input
+                  id="checkList"
+                  className="toggle"
+                  type="checkbox"
+                  checked={todoTask.completed}
+                  onChange={() => handleCompleted(todoTask)}
+                />
+              </label>
               <TodoDetails todoJob={todoTask} />
               <button
                 name="destroy"
                 className="destroy"
                 onClick={() => handleDeleteTask(todoTask.id)}
-              ></button>
+              >
+                btn
+              </button>
             </div>
           </li>
         ))}

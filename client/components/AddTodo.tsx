@@ -16,7 +16,11 @@ function AddTodo() {
   return (
     <>
       <form onSubmit={submitForm}>
+        <label id="newtodo" htmlFor="todoList">
+          to do list
+        </label>
         <input
+          id="todoList"
           className="new-todo"
           placeholder="What needs to be done?"
           // autoFocus={true}

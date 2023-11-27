@@ -31,7 +31,7 @@ function TodoDetails({ todoJob }: { todoJob: TodoTask }) {
       />
     </form>
   ) : (
-    <label htmlFor="text" onDoubleClick={() => setIsEditing(true)}>
+    <label onDoubleClick={() => setIsEditing(true)}>
       {todoJob.taskDetails}
     </label>
   )
