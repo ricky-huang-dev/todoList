@@ -43,6 +43,7 @@ function TodoList() {
                   onChange={() => handleCompleted(todoTask)}
                 />
               </label>
+
               <TodoDetails todoJob={todoTask} />
               <button
                 name="destroy"
