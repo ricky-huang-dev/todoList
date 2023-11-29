@@ -6,15 +6,9 @@ interface Props {
   id: number
   task: string
   completed: boolean
-  toggleCompleted: () => void
 }
 
-export default function TodoPage({
-  id,
-  task,
-  completed,
-  toggleCompleted,
-}: Props) {
+export default function TodoPage({ id, task, completed }: Props) {
   const [editing, setEditing] = useState(false)
   const [text, setText] = useState(task)
 
@@ -60,11 +54,7 @@ export default function TodoPage({
       ) : (
         <div>
           <label>
-            <input
-              type="checkbox"
-              checked={completed}
-              onChange={toggleCompleted}
-            />
+            <input type="checkbox" checked={completed} />
             <span className={completed ? 'completed' : ''}>{task}</span>
           </label>
           <span>

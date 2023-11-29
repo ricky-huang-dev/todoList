@@ -44,7 +44,9 @@ export default function TodoList() {
   return (
     <>
       <div>
+        <label htmlFor="taskInput">Add task</label>
         <input
+          id="taskInput"
           onSubmit={handleSubmit}
           className="new-todo"
           type="text"
