@@ -1,5 +1,5 @@
 import server from './server.ts'
-
+import express from 'express'
 const PORT = process.env.PORT || 3000
 
 server.listen(PORT, () => {
@@ -7,7 +7,9 @@ server.listen(PORT, () => {
   console.log('API server listening on port', PORT)
 })
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  const envConfig = require('dotenv').config()
-  if (envConfig.error) throw envConfig.error
+if (process.env.NODE_ENV === 'production') {
+  server.use('/assets', express.static('../assets'))
+  server.get('*', (req, res) => {
+    res.sendFile('../index.html')
+  })
 }
