@@ -1,36 +1,34 @@
-// eslint-disable-next-line no-unused-vars
 import { useState } from 'react'
-import useTodos from '../hooks/useTodos'
+import useTasks from '../hooks/useTasks'
 
+// eslint-disable-next-line no-unused-vars
 function AddTodo() {
-  const [newTodo, setNewTodo] = useState('')
+  const [newTaskText, setNewTaskText] = useState('')
 
-  const { addMutation } = useTodos()
+  const { addMutation } = useTasks()
 
-  async function submitForm(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    addMutation(newTodo)
-    setNewTodo('')
+    addMutation(newTaskText)
+    setNewTaskText('')
   }
 
   return (
-    <>
-      <form onSubmit={submitForm}>
-        <label id="newtodo" htmlFor="todoList">
-          to do list
-        </label>
-        <input
-          id="todoList"
-          className="new-todo"
-          placeholder="What needs to be done?"
-          // autoFocus={true}
-          type="text"
-          name="taskDetails"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-        />
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="new-todo" style={{ position: 'absolute', height: 0 }}>
+        New todo
+      </label>
+
+      <input
+        name="new-todo"
+        id="new-todo"
+        className="new-todo"
+        placeholder="What needs to be done?"
+        autoFocus={true}
+        value={newTaskText}
+        onChange={(e) => setNewTaskText(e.target.value)}
+      />
+    </form>
   )
 }
 

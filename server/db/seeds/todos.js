@@ -1,13 +1,20 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  await knex('todos').del()
-  await knex('todos').insert([
-    { id: 1, taskDetails: 'do coding lesson', completed: true, priority: 5 },
-    { id: 2, taskDetails: 'do the dishes', completed: false, priority: 4 },
-    { id: 3, taskDetails: 'do the laundary', completed: false, priority: 2 },
+  await knex('tasks').del()
+  await knex('tasks').insert([
+    {
+      text: 'Buy milk',
+      completed: false,
+      priority: 0,
+    },
+    {
+      text: 'Do laundry',
+      completed: false,
+      priority: 0,
+    },
+    {
+      text: 'Walk the dog',
+      completed: true,
+      priority: 0,
+    },
   ])
 }

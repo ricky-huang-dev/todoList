@@ -1,20 +1,12 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 export async function up(knex) {
-  return knex.schema.createTable('todos', (table) => {
+  return knex.schema.createTable('tasks', (table) => {
     table.increments('id').primary()
-    table.string('taskDetails').notNullable()
-    table.boolean('completed').notNullable().defaultTo(false)
+    table.string('text').notNullable()
     table.integer('priority').notNullable().defaultTo(0)
+    table.boolean('completed').notNullable().defaultTo(false)
   })
 }
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-export function down(knex) {
-  return knex.schema.dropTable('todos')
+export async function down(knex) {
+  return knex.schema.dropTableIfExists('tasks')
 }

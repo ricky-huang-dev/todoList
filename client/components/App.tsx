@@ -1,15 +1,15 @@
 import AddTodo from './AddTodo.tsx'
-import TodoList from './TodoList.tsx'
+import TaskList from './TaskList.tsx'
 
 function App() {
   return (
     <>
       <header className="header">
-        <h1>todos</h1>
+        <h1>tasks</h1>
         <AddTodo />
       </header>
       <section className="main">
-        <TodoList />
+        <TaskList />
       </section>
       <footer className="footer"></footer>
     </>
