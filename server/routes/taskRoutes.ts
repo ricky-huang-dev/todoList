@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
   try {
     const tasks = await db.showTasks()
     res.json(tasks)
-    res.sendStatus(200)
   } catch (err) {
     console.log(err)
     res.status(500).send('Taks not found')

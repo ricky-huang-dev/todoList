@@ -56,19 +56,23 @@ function GetTasks() {
       {data?.map((item: Task) => (
         <div key={item.id}>
           <li className={item.completed === true ? 'completed' : ''}>
-            <input
-              className="toggle"
-              type="checkbox"
-              name="taskDone"
-              id={item.id.toString()}
-              checked={item.completed}
-              onChange={(e) => handleTaskDone(e, item.id)}
-            />
-            <label key={item.id}>{item.taskDetails}</label>
-            <button
-              onClick={() => deleteTask(item.id)}
-              className="destroy"
-            ></button>
+            <fieldset>
+              <legend></legend>
+              <label htmlFor={item.id.toString()}>
+                <input
+                  type="checkbox"
+                  name="taskDone"
+                  id={item.id.toString()}
+                  checked={item.completed}
+                  onChange={(e) => handleTaskDone(e, item.id)}
+                />
+                {item.taskDetails}
+              </label>
+            </fieldset>
+
+            <button onClick={() => deleteTask(item.id)} className="destroy">
+              x
+            </button>
           </li>
         </div>
       ))}
